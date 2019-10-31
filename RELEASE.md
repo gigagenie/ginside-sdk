@@ -2,6 +2,10 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## G-Plugin for Android v2.0.5 (2019-10-31)
+* (UPDATE) KWS-G 호출어 라이브러리 v1.0.607 적용
+* (FIX) setSeverInfo() 오류 수정
+
 ## G-SDK for Linux/Android/Windows v1.0.0 (2019-10-7)
 * 기가지니 default 호출어 변경(기가지니->지니야)
 * 서비스/컨텐츠에 대한 meta 정보 제공(Developer Guide 38페이지 "9.12.8 metaInfo 상세설명" 참고)

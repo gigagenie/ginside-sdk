@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* GiGA Genie Inside Mobile SDK(G-Plugin) for Android v2.0.5 released (2019-10-31)
 * GiGA Genie Inside Device SDK(G-SDK) v1.0.0 released (2019-10-07)
   - Linux, Android, Windows 지원
   - 서비스 메타정보(meta info) 제공
@@ -21,7 +22,6 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
 * GiGA Genie Inside Mobile SDK(이하, G-Plugin)
 
   Android, iOS 등 스마트폰 앱에 기가지니를 탑재하기 위한 용도로 사용 권장, 마이크(mic)에 대한 제어는 G-Plugin 내에서 처리
-  > 곧 공개 예정입니다.
 
 * GiGA Genie Inside Device API(이하, G-API)
 
@@ -51,6 +51,7 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * g-sdk-android/ : G-SDK for Android 라이브러리
 * g-sdk-linux/ : G-SDK for Linux 라이브러리 및 샘플 클라이언트
 * g-sdk-windows/ : G-SDK for Windows 라이브러리
+* g-plugin-android/ : G-Plugin for Android 라이브르러 및 개발자 가이드
 
 ## Release Notes
 
