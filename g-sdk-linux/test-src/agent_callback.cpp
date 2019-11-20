@@ -291,36 +291,36 @@ unsigned int timediff(struct timeval startTime, struct timeval endTime)
 #endif
 
 
-void onEvent(int eventMask, std::string opt)
-{
-	printf("onEvent ---> eventMask=%d, opt=%s\n", eventMask, opt.c_str());
-
-	switch (eventMask)
-	{
-	case INSIDE_EVENT::VOICE_STOP:
-		// 녹음 중단, KWS 시작 -- 마이크 입력을 중지한다.
-		printf("VOICE_STOP (%s) received. Stop to record a mic!\n", opt.c_str());
-		if (g_start_mic == 1)
-		{
-			printf("Stop request to record a mic!\n");
-			g_start_mic = 0;
-		}
-		else
-		{
-			printf("Recording a mic is already stopped!\n");
-		}
-		break;
-	case INSIDE_EVENT::VOICE_START:
-		// 녹음 시작 - 마이크를 통해 사용자 음성 입력이 될 수 있도록 한다.
-		printf("VOICE_START -- Start to record a mic\n");
-		g_start_mic = 1;
-		break;
-	case INSIDE_EVENT::SERVER_ERROR:
-		printf("SERVER_ERROR (%s) received.\n", opt.c_str());
-		break;
-	default:
-		printf("onEvent ---> eventMask=%d, opt=%s\n", eventMask, opt.c_str());
-		break;
+void onEvent(int eventMask, std::string opt) {
+	switch (eventMask) {
+		case INSIDE_EVENT::VOICE_STOP:
+			printf("onEvent ---> VOICE_STOP (%s) received. Stop to record a mic!\n", opt.c_str());
+			if (g_start_mic == 1) {
+				printf("Stop request to record a mic!\n");
+				g_start_mic = 0;
+			} else {
+				printf("Recording a mic is already stopped!\n");
+			}
+			break;
+		case INSIDE_EVENT::VOICE_START:
+			printf("onEvent ---> VOICE_START -- Start to record a mic\n");
+			g_start_mic = 1;
+			break;
+		case INSIDE_EVENT::SERVER_ERROR:
+			printf("onEvent ---> SERVER_ERROR (%s) received.\n", opt.c_str());
+			break;
+		case INSIDE_EVENT::GRPC_INIT_SUCCESS:
+			printf("onEvent ---> GRPC_INIT_SUCCESS received.\n");
+			break;
+		case INSIDE_EVENT::GRPC_INIT_FAIL:
+			printf("onEvent ---> GRPC_INIT_FAIL received.\n");
+			break;
+		case INSIDE_EVENT::GRPC_DISCONNECTED:
+			printf("onEvent ---> GRPC_DISCONNECTED received. opt : %s\n", opt.c_str());
+			break;
+		default:
+			printf("onEvent ---> eventMask=%d, opt=%s\n", eventMask, opt.c_str());
+			break;
 	}
 }
 
@@ -341,7 +341,7 @@ void processReqSTTM(std::string cmdPayload)
 			printf("found payload from the Req_STTM\n");
 			cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
 			if (cmdp_cmdOpt != NULL)
-			{	// 옛날 버전은 array list였는듯...
+			{
 				cJSON *reqAct_obj = cJSON_GetObjectItem(cmdp_cmdOpt, "reqAct");
 				cJSON *actionTrx_obj = cJSON_GetObjectItem(cmdp_cmdOpt, "actionTrx");
 				cJSON *setTime_obj = cJSON_GetObjectItem(cmdp_cmdOpt, "setTime");

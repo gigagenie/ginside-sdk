@@ -2,6 +2,14 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## G-SDK for Linux/Android/Windows v1.0.1 (2019-11-19)
+* (FIXED) 서버 요청 시 gRPC 세션 연결 상태 체크 후 필요시 서버 재연결 로직 추가
+* (ADDED) gRPC 연결 상태 이상/에러 발생 시 gRPC disconnect 및 SERVER_ERROR(GRPC_DISCONNECTED) 이벤트 전달
+* (ADDED) 서버 응답 timeout 이벤트 추가
+  - 음성인식 요청(agent_startVoice) 후 10초 내에 서버 응답 없을 경우, SERVER_ERROR(601) 이벤트 전달
+  - VOICE_START 이벤트 수신 후 sendVoice() 음성 데이터 전송 시작 후 10초 내 VOICE_STOP 이벤트가 오지 않을 경우, SERVER_ERROR(602) 이벤트 전달
+  - VOICE_STOP 이벤트 수신 후 10초 내 서버 Command(TTS, Media 등)가 없을 경우, SERVER_ERROR(603) 이벤트 전달
+
 ## G-Plugin for Android v2.0.5 (2019-10-31)
 * (UPDATE) KWS-G 호출어 라이브러리 v1.0.607 적용
 * (FIX) setSeverInfo() 오류 수정

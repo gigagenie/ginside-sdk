@@ -35,7 +35,7 @@ typedef struct
 DLL_EXPORT REGISTER_CODE agent_register(std::string client_id, std::string client_key, std::string client_secret, std::string user_id);
 DLL_EXPORT REGISTER_CODE agent_init(std::string client_id, std::string client_key, std::string client_secret, std::string uuid);
 
-DLL_EXPORT std::string agent_unregister();
+DLL_EXPORT REGISTER_CODE agent_unregister();
 
 DLL_EXPORT void agent_setLocation(std::string Longitude, std::string Latitude, std::string Address);
 

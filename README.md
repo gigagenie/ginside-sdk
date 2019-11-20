@@ -2,11 +2,11 @@
 
 ## What's New?
 
+* Device SDK for Linux/Android/Windows v1.0.1 released (2019-11-19)
 * GiGA Genie Inside Mobile SDK(G-Plugin) for Android v2.0.5 released (2019-10-31)
 * GiGA Genie Inside Device SDK(G-SDK) v1.0.0 released (2019-10-07)
   - Linux, Android, Windows 지원
   - 서비스 메타정보(meta info) 제공
-
 
 ## GiGA Genie Inside 란?
 

@@ -1,7 +1,6 @@
 #ifndef  __GINSIDEDEF_H__
 #define  __GINSIDEDEF_H__
 
-
 // Agent Server Command
 #define  CMD_REQ_VOCM		"Req_VOCM"  // Device --> Server
 #define  CMD_REQ_CAVM		"Req_CAVM"  // Device --> Server
@@ -30,19 +29,26 @@
 #define  CMD_REQ_QFMI		"Req_QFMI"  // Server --> Device
 #define  CMD_RES_QFMI		"Res_QFMI"  // Device --> Server
 #define  CMD_REQ_TXCM		"Req_TXCM"  // Device --> Service
+#define  CMD_REQ_STCK		"Req_STCK"  // Device --> Service
+#define  CMD_RES_STCK		"Res_STCK"  // Server --> Device
 
 #define  CMD_REQ_EXEC		"Req_EXEC"  // Device --> Service
 #define  CMD_REQ_OAUTH		"Req_OAuth" // Device --> Service
 #define  CMD_SND_ERR		"Snd_ERR"	// ?
 
 
-namespace INSIDE_EVENT
-{
-	const int RESULT_INIT_SUCCESS = 0;
+namespace INSIDE_EVENT {
+	const int GRPC_INIT_SUCCESS = 0;
+	const int GRPC_INIT_FAIL = 1; // add 190925
+	const int GRPC_DISCONNECTED = 2; // add 190925
+
+	const int TIMEOUT_START_VOICE = 601; // req_vocm 전송 후에 res_vocm 을 전달받지 못했을
+	const int TIMEOUT_STOP_VOICE = 602; // req_strv 수신 후 음성데이터를 보낸 시점부터 10초 뒤에 REQ_STPV 응답을 못받았을 때.
+	const int TIMEOUT_RECEIVE_DATA = 603; // req_stpv 수신 후에 아무런 데이터를 못받았을 때.
+
 	const int VOICE_START = 201;
 	const int VOICE_STOP = 202;
 	const int SERVER_ERROR = 205;
 }
-
 
 #endif		// end of __GINSIDEDEF_H__
