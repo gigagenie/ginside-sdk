@@ -1,0 +1,6 @@
+framework module GPlugin {
+  umbrella header "GPlugin.h"
+
+  export *
+  module * { export * }
+}

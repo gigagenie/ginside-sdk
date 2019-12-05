@@ -2,6 +2,8 @@
 
 ## What's New?
 
+* Mobile SDK(G-Plugin) for iOS v2.0.0beta released (2019-12-05)
+* Mobile SDK(G-Plugin) for Android v2.0.6 released (2019-12-05)
 * Device SDK for Linux/Android/Windows v1.0.1 released (2019-11-19)
 * GiGA Genie Inside Mobile SDK(G-Plugin) for Android v2.0.5 released (2019-10-31)
 * GiGA Genie Inside Device SDK(G-SDK) v1.0.0 released (2019-10-07)
@@ -52,7 +54,8 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * g-sdk-android/ : G-SDK for Android 라이브러리
 * g-sdk-linux/ : G-SDK for Linux 라이브러리 및 샘플 클라이언트
 * g-sdk-windows/ : G-SDK for Windows 라이브러리
-* g-plugin-android/ : G-Plugin for Android 라이브르러 및 개발자 가이드
+* g-plugin-android/ : G-Plugin for Android 라이브러리 및 개발자 가이드
+* g-plugin-ios/ : G-Plugin for iOS 라이브러리 및 개발자 가이드
 
 ## Release Notes
 
