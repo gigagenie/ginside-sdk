@@ -6,6 +6,7 @@
 * lib/ : shared library(libginside.so, libKwsRnet.so)
   - ubuntu-x86_64/*.so : Ubuntu-x86_64 supported
   - centos-x86_64/*.so : CentOS-x86_64 supported
+  - raspbian-armv7l/*.so : Raspberry Pi supported
   - poky-aud-systemd-aarch64/*.so : G-INSIDE Reference H/W supported(Yocto Linux aarch64)
 * sample-src/ : Sample Client Template Open Source
 * test-src/ : SDK API 테스트 앱 Open Source
@@ -15,6 +16,8 @@
   * Ubuntu x86_64 : OpenSSL 1.1 required
 * CentOS Linux
   * CentOS x86_64 : OpenSSL 1.0 required
+* Raspbian for Raspberry Pi
+  * Raspbian armv7l : OpenSSL 1.1 required
 * Embedded Linux
   * G-INSIDE Reference H/W(Yocto Linux aarch64)
     - lib dependency: libprotoc 3.6.1, grpc 1.14.1, cJSON 1.7.12, OpenSSL 1.0.2g
@@ -36,6 +39,9 @@ $ sudo apt-get install build-essential autoconf automake libtool pkg-config curl
 [CentOS]
 $ sudo yum groupinstall 'Development Tools'
 $ sudo yum install cmake
+
+[Raspbian]
+$ sudo apt-get install autoconf automake libtool cmake
 ```
 
 ### Protobuf
@@ -51,8 +57,14 @@ $ make check
 $ sudo make install
 $ sudo ldconfig
 ```
+or
+```
+Visit to https://github.com/protocolbuffers/protobuf/releases/latest
+Download protobuf-cpp-[VERSION].tar.gz
+build & install
+```
 
-### Building gRPC C++
+### gRPC C++
 ```
 $ git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
 $ cd grpc

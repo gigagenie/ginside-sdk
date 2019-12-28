@@ -2,6 +2,11 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## G-SDK for Raspberry Pi released (2019-12-28)
+* (NEW) Raspbian-armv7l(Raspberry Pi) 지원
+  - G-SDK v1.0.1 for Raspbian Linux
+  - SEE g-sdk-linux/lib/raspbian-armv7l/
+
 ## G-Plugin for iOS v2.0.0beta (2019-12-05)
 * initial public release
 * iOS 9.0 or later supported

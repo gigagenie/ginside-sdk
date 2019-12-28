@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* Raspberry Pi 지원 G-SDK v1.0.1 released (2019-12-28)
 * Mobile SDK(G-Plugin) for iOS v2.0.0beta released (2019-12-05)
 * Mobile SDK(G-Plugin) for Android v2.0.6 released (2019-12-05)
 * Device SDK for Linux/Android/Windows v1.0.1 released (2019-11-19)
@@ -36,7 +37,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
 GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * G-SDK
   - Android API level 19 or later
-  - Linux : Ubuntu x86_64, CentOS x86_64, Yocto aarch64(G-INSIDE reference H/W)
+  - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W)
   - Windows 64-bit
 * G-Plugin
   - Android API level 22 or later, iOS 9 or later
