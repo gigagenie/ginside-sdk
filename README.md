@@ -2,11 +2,11 @@
 
 ## What's New?
 
-* Update deviceSDK Developer Guide Document (2020-02-05)
+* Device SDK for Linux/Android/Windows v1.0.2 released (2020-02-28)
+* Update deviceSDK Developer Guide Document (2020-02-28)
 * Mobile SDK for iOS v2.0.1beta released (2020-01-21)
 * Raspberry Pi 지원 Device SDK v1.0.1 released (2019-12-28)
 * Mobile SDK for Android v2.0.6 released (2019-12-05)
-* Device SDK for Linux/Android/Windows v1.0.1 released (2019-11-19)
 
 ## GiGA Genie Inside 란?
 
