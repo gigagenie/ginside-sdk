@@ -3,8 +3,8 @@
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
 ## Device SDK for Linux/Android/Windows v1.0.2 (2020-02-28)
+* (Update) 공통 : kws model name 구조변경(0~3.cnsf) 및 default 호출어(지니야) 반영
 * (FIX) 공통 : agent_onCommand() 날씨 metaInfo 데이터 현행화, 변경된 stream ID 구분 처리
-* (FIX) 공통 : kws_init() kws model name 구조변경(0~3.cnsf) 및 default 1.cnsi(지니야)로 설정
 * (FIX) 공통 : agent_onEvent : Snd_ERR errCode가 200이 아닌 경우에만 Server Error 이벤트 전달
 * (FIX) Android SDK : 연속대화시 START_VOICE onCommand 전달하지 않는 오류 수정
 * (FIX) Android SDK : media_url 전달 시 playNotiTime Type 변경
