@@ -8,6 +8,7 @@
   - centos-x86_64/*.so : CentOS-x86_64 supported
   - raspbian-armv7l/*.so : Raspberry Pi supported
   - poky-aud-systemd-aarch64/*.so : G-INSIDE Reference H/W supported(Yocto Linux aarch64)
+  - arm-cortex-a53_a13x/*.so : ARM Cortex-A53 supported
 * sample-src/ : Sample Client Template Open Source
 * test-src/ : SDK API 테스트 앱 Open Source
 
@@ -21,6 +22,7 @@
 * Embedded Linux
   * G-INSIDE Reference H/W(Yocto Linux aarch64)
     - lib dependency: libprotoc 3.6.1, grpc 1.14.1, cJSON 1.7.12, OpenSSL 1.0.2g
+  * ARM Cortex-A53
 
 ## SDK 이용을 위해 아래 라이브러리가 필요합니다.
 * [gRPC](#grpc-installation)

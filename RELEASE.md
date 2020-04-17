@@ -2,6 +2,17 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## Mobile SDK for Android v2.0.7 (2020-04-17)
+* (Update) KWS-S 호출어 라이브러리 beta2 적용
+* (Update) 인텐트 답변기능__systemMesg 추가
+* (Update) Snd_SVEV에서 type이 "standby"로 전달 되는 경우 onEvent의 GO_TO_STANDBY 이벤트 전달
+
+## Device SDK for Linux/Android/Windows v1.0.3 (2020-04-17)
+* (NEW) ARM Cortex-A53 Embedded Linux 지원
+* (Update) 공통 : Snd_SVEV에서 type이 "standby"로 전달 되는 경우 onEvent의 GO_TO_STANDBY 이벤트 전달
+* (FIX) Android SDK : default 서버 수정(inside.gigagenie.ai)
+* (FIX) Android SDK : InfoDetail imageurl 오타 수정
+
 ## Device SDK for Linux/Android/Windows v1.0.2 (2020-02-28)
 * (Update) 공통 : kws model name 구조변경(0~3.cnsf) 및 default 호출어(지니야) 반영
 * (FIX) 공통 : agent_onCommand() 날씨 metaInfo 데이터 현행화, 변경된 stream ID 구분 처리

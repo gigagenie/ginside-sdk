@@ -2,11 +2,11 @@
 
 ## What's New?
 
-* Device SDK for Linux/Android/Windows v1.0.2 released (2020-02-28)
+* Device SDK for Linux/Android/Windows v1.0.3 released (2020-04-17)
+* Mobile SDK for Android v2.0.7 released (2020-04-17)
 * Update deviceSDK Developer Guide Document (2020-02-28)
 * Mobile SDK for iOS v2.0.1beta released (2020-01-21)
 * Raspberry Pi 지원 Device SDK v1.0.1 released (2019-12-28)
-* Mobile SDK for Android v2.0.6 released (2019-12-05)
 
 ## GiGA Genie Inside 란?
 
@@ -34,7 +34,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
 GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * Device SDK
   - Android API level 19 or later
-  - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W)
+  - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W), ARM Cortex-A53
   - Windows 64-bit
 * Mobile SDK
   - Android API level 22 or later, iOS 9 or later

@@ -41,6 +41,7 @@ namespace INSIDE_EVENT {
 	const int GRPC_INIT_SUCCESS = 0;
 	const int GRPC_INIT_FAIL = 1; // add 190925
 	const int GRPC_DISCONNECTED = 2; // add 190925
+	const int GO_TO_STANDBY = 3; // add 200408
 
 	const int TIMEOUT_START_VOICE = 601; // req_vocm 전송 후에 res_vocm 을 전달받지 못했을
 	const int TIMEOUT_STOP_VOICE = 602; // req_strv 수신 후 음성데이터를 보낸 시점부터 10초 뒤에 REQ_STPV 응답을 못받았을 때.
