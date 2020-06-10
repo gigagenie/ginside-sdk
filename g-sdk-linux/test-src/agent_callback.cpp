@@ -293,19 +293,19 @@ unsigned int timediff(struct timeval startTime, struct timeval endTime)
 
 void onEvent(int eventMask, std::string opt) {
 	switch (eventMask) {
-		case INSIDE_EVENT::VOICE_STOP:
-			printf("onEvent ---> VOICE_STOP (%s) received. Stop to record a mic!\n", opt.c_str());
-			if (g_start_mic == 1) {
-				printf("Stop request to record a mic!\n");
-				g_start_mic = 0;
-			} else {
-				printf("Recording a mic is already stopped!\n");
-			}
-			break;
-		case INSIDE_EVENT::VOICE_START:
-			printf("onEvent ---> VOICE_START -- Start to record a mic\n");
-			g_start_mic = 1;
-			break;
+//		case INSIDE_EVENT::VOICE_STOP:
+//			printf("onEvent ---> VOICE_STOP (%s) received. Stop to record a mic!\n", opt.c_str());
+//			if (g_start_mic == 1) {
+//				printf("Stop request to record a mic!\n");
+//				g_start_mic = 0;
+//			} else {
+//				printf("Recording a mic is already stopped!\n");
+//			}
+//			break;
+//		case INSIDE_EVENT::VOICE_START:
+//			printf("onEvent ---> VOICE_START -- Start to record a mic\n");
+//			g_start_mic = 1;
+//			break;
 		case INSIDE_EVENT::SERVER_ERROR:
 			printf("onEvent ---> SERVER_ERROR (%s) received.\n", opt.c_str());
 			break;
@@ -370,259 +370,164 @@ void processReqSTTM(std::string cmdPayload)
 	}
 }
 
-void onCommand(std::string cmd)
+void onCommand(std::string actionType, std::string payload)
 {
 	int voiceDataSize = 0;
-	int ttsWaveDataSize = 0;
 	const char* voiceData;
-	char* ttsWaveData = NULL;
-	bool end = true;
 	static char filename[255], filename_ext[255];
 	static FILE	*fp = NULL;
 #ifndef LINUX
 	char inbuf[40960], outbuf[40960];
 #endif
-	std::string	msgType, actionType, msgPayload, contentType;
 
 #ifdef LINUX
 	static struct timeval	startTime, endTime;
 #endif
 
-	cJSON *cmdp_jsonObj = cJSON_Parse(cmd.c_str());
-	if (cmdp_jsonObj == NULL)
+	printf("onCommand -> actionType=[%s]\n", actionType.c_str());
+	if (strcmp(actionType.c_str(), "media_data") == 0)
 	{
-		printf("parsing Error\n");
+	    std::string media = payload;
+	    std::string decoded = base64_decode(media);
+	    printf("media size=[%d]\n", decoded.size());
+	    voiceDataSize = (int)decoded.size();
+	    voiceData = decoded.c_str();
+
+	    getfilename(filename);
+	    sprintf(filename_ext, "%s.wav", filename);
+
+	    printf("Writing data to a file, %s with a size, %d\n", filename_ext, voiceDataSize);
+
+	    fp = fopen(filename_ext, "w+b");
+	    if (fp != NULL)
+	    {
+	        fwrite(voiceData, 1, voiceDataSize, fp);
+	        fclose(fp);
+	        fp = NULL;
+	    }
+	    memset(filename, 0x0, sizeof(filename));
+	    memset(filename_ext, 0x0, sizeof(filename_ext));
+
+	    // send request about UPD_MEST: started, complete
+	    g_tts_play_set = 1;
+	    g_tts_playtime = voiceDataSize / 32;	// ignore the headersize - 16 * 1000 * 2 <-- why  32?
+	    agent_updateMediaStatus(0, "started", 0);
+	    return;
+	}
+	else if (strcmp(actionType.c_str(), "start_voice") == 0)
+	{
+	    printf("received action type=%s, so calling agent_startVoice().\n", "start_voice");
+	    g_start_mic = 1;
+	    //agent_startVoice();
+	}
+	else if(strcmp(actionType.c_str(), "stop_voice") == 0)
+	{
+        if (g_start_mic == 1) {
+            printf("Stop request to record a mic!\n");
+            g_start_mic = 0;
+        } else {
+            printf("Recording a mic is already stopped!\n");
+        }
+	}
+	else if (strcmp(actionType.c_str(), "set_timer") == 0)
+	{
+	    processReqSTTM(payload);
+	}
+	else if (strcmp(actionType.c_str(), "play_media") == 0)
+	{
+	    cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload == NULL)
+	    {
+	        printf("play_media parsing Error\n");
+	    }
+	    else
+	    {
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL)
+	        {
+	            cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
+	            cJSON *cmdp_actOnOther = cJSON_GetObjectItem(cmdp_cmdOpt, "actOnOther");
+	            cJSON *cmdp_url = cJSON_GetObjectItem(cmdp_cmdOpt, "url");
+	            if(cmdp_url != NULL) {
+	                printf("media_url, Req_PLMD, payload: {channel=%d,actOnOther=%s,url=%s}\n",
+	                        cmdp_channel->valueint, cmdp_actOnOther->valuestring, cmdp_url->valuestring);
+	            } else {
+	                printf("media_url, Req_PLMD, payload: {channel=%d,actOnOther=%s,url=%s}\n",
+	                        cmdp_channel->valueint, cmdp_actOnOther->valuestring, "");
+	            }    
+	        }
+	    }
+	    cJSON_Delete(cmdp_payload);
+	}		
+	else if (strcmp(actionType.c_str(), "exec_dialogkit") == 0)
+	{
+	    printf("exec_dialogkit, dialogResponse = %s\n", payload.c_str());
+	}
+	else if (strcmp(actionType.c_str(), "control_hardware") == 0)
+	{
+	    cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload == NULL)
+	    {
+	        printf("control_hardware parsing Error\n");
+	    }
+	    else
+	    {
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL)
+	        {
+	            cJSON *cmdp_target = cJSON_GetObjectItem(cmdp_cmdOpt, "target");
+	            cJSON *cmdp_hwCmd = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmd");
+	            cJSON *cmdp_hwCmdOpt = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmdOpt");
+	            if (strcmp(cmdp_target->valuestring, "volume") == 0 && strcmp(cmdp_hwCmd->valuestring, "setVolume") == 0 && cmdp_hwCmdOpt != NULL)
+	            {
+	                cJSON *cmdp_control = cJSON_GetObjectItem(cmdp_hwCmdOpt, "control");
+	                cJSON *cmdp_value = cJSON_GetObjectItem(cmdp_hwCmdOpt, "value");
+
+	                printf("hardware_control, Req_HWCL, volume, setVolme:(%s, %s)\n", cmdp_control->valuestring, cmdp_value->valuestring);
+
+	                if (strcmp(cmdp_control->valuestring, "UP") == 0)
+	                {
+	                    printf("volume up!\n");
+	                }
+	                else
+	                {
+	                    printf("volume down!\n");
+	                }
+	            }
+	            else
+	            {
+	                printf("target=%s, cmd=%s\n", cmdp_target->valuestring, cmdp_hwCmd->valuestring);
+	            }
+	        }
+	    }
+	    cJSON_Delete(cmdp_payload);
+	}
+	else if (strcmp(actionType.c_str(), "webview_url") == 0)
+	{
+	    cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload == NULL)
+	    {
+	        printf("webview_url parsing Error\n");
+	    }
+	    else
+	    {
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL)
+	        {
+	            cJSON *cmdp_oauth_url = cJSON_GetObjectItem(cmdp_cmdOpt, "oauth_url");
+	            if(cmdp_oauth_url != NULL) {
+	                printf("webview_url, Req_OAuth, payload: {oauth_url=%s}\n", cmdp_oauth_url->valuestring);
+	            }
+	        }
+	    }
+	    cJSON_Delete(cmdp_payload);
 	}
 	else
 	{
-		cJSON *cmdp_actionType = cJSON_GetObjectItem(cmdp_jsonObj, "actionType");
-		cJSON *cmdp_commandType = cJSON_GetObjectItem(cmdp_jsonObj, "commandType");	// commandType or contentType
-		cJSON *cmdp_contentType = cJSON_GetObjectItem(cmdp_jsonObj, "contentType");
-		cJSON *cmdp_payload = cJSON_GetObjectItem(cmdp_jsonObj, "payload");
-
-		actionType = cmdp_actionType->valuestring;
-
-		msgType = "";
-		if (cmdp_commandType != NULL)
-		{
-			msgType = cmdp_commandType->valuestring;
-		}
-		contentType = "";
-		if (cmdp_contentType != NULL)
-		{
-			contentType = cmdp_contentType->valuestring;
-		}
-		printf("onCommand -> actionType=[%s], msgType=[%s], contentType=[%s]\n", actionType.c_str(), msgType.c_str(), contentType.c_str());
-		if (strcmp(actionType.c_str(), "media_stream") == 0)
-		{
-			if (strcmp(contentType.c_str(), "wav") == 0)
-			{
-				cJSON *cmdp_mediastream = cJSON_GetObjectItem(cmdp_jsonObj, "mediastream");
-				std::string media = cmdp_mediastream->valuestring;
-				std::string decoded = base64_decode(media);
-				printf("media size=[%d]\n", decoded.size());
-				voiceDataSize = (int)decoded.size();
-				voiceData = decoded.c_str();
-
-				getfilename(filename);
-				sprintf(filename_ext, "%s.wav", filename);
-
-				printf("Writing data to a file, %s with a size, %d\n", filename_ext, voiceDataSize);
-
-				fp = fopen(filename_ext, "w+b");
-				if (fp != NULL)
-				{
-					fwrite(voiceData, 1, voiceDataSize, fp);
-					fclose(fp);
-					fp = NULL;
-				}
-				memset(filename, 0x0, sizeof(filename));
-				memset(filename_ext, 0x0, sizeof(filename_ext));
-				cJSON_Delete(cmdp_jsonObj);
-
-				// send request about UPD_MEST: started, complete
-				g_tts_play_set = 1;
-				g_tts_playtime = voiceDataSize / 32;	// ignore the headersize - 16 * 1000 * 2 <-- why  32?
-				agent_updateMediaStatus(0, "started", 0);
-				return;
-			}
-			else if (strcmp(contentType.c_str(), "pcm_stream") == 0)
-			{
-				cJSON *cmdp_mediastream = cJSON_GetObjectItem(cmdp_jsonObj, "mediastream");
-				cJSON *cmdp_end = cJSON_GetObjectItem(cmdp_jsonObj, "end");
-
-				std::string media = cmdp_mediastream->valuestring;
-				std::string decoded = base64_decode(media);
-				voiceDataSize = (int)decoded.size();
-				voiceData = decoded.c_str();
-
-				printf("contentType=[%s], end=[%d], media size=[%d]\n", contentType.c_str(), cmdp_end->valueint, voiceDataSize);
-				if (cmdp_end->valueint == 0)
-				{	// START
-					getfilename(filename);
-					sprintf(filename_ext, "%s.pcm", filename);
-
-					printf("Writing data to a file, %s with a size, %d\n", filename_ext, voiceDataSize);
-
-					fp = fopen(filename_ext, "w+b");
-					if (fp != NULL)
-					{
-						fwrite(voiceData, 1, voiceDataSize, fp);
-					}
-					// send request about UPD_MEST: started, complete
-					g_tts_stream_playtime = voiceDataSize / 32;	// ignore the headersize - 16 * 1000 * 2 <-- why  32?
-#ifdef  LINUX
-					gettimeofday(&startTime, NULL);
-#endif
-					agent_updateMediaStatus(0, "started", 0);
-				}
-				else if (cmdp_end->valueint == 2)
-				{	// END
-					printf("Closing data to a file, %s with a size, %d\n", filename_ext, voiceDataSize);
-					if (voiceDataSize > 0 && fp != NULL)
-					{
-						fwrite(voiceData, 1, voiceDataSize, fp);
-						g_tts_stream_playtime += voiceDataSize / 32;	// ignore the headersize - 16 * 1000 * 2 <-- why  32?
-					}
-					if (fp != NULL)
-					{
-						fclose(fp);
-						fp = NULL;
-					}
-					memset(filename, 0x0, sizeof(filename));
-					memset(filename_ext, 0x0, sizeof(filename_ext));
-#ifdef  LINUX
-					gettimeofday(&endTime, NULL);
-					g_tts_stream_org_playtime = g_tts_stream_playtime;
-					g_tts_stream_playtime -= timediff(startTime, endTime);
-					printf("Original playtime = %d ms, Recalculated playtime = %d ms\n", g_tts_stream_org_playtime, g_tts_stream_playtime);
-#endif
-					g_tts_stream_play_set = 1;
-				}
-				else
-				{	// IN PROGRESS
-					printf("Appending data to a file, %s with a size, %d\n", filename_ext, voiceDataSize);
-					if (voiceDataSize > 0 && fp != NULL)
-					{
-						fwrite(voiceData, 1, voiceDataSize, fp);
-						g_tts_stream_playtime += voiceDataSize / 32;	// ignore the headersize - 16 * 1000 * 2 <-- why  32?
-					}
-				}
-				cJSON_Delete(cmdp_jsonObj);
-				return;
-			}
-		}
-		else if (strcmp(actionType.c_str(), "start_voice") == 0)
-		{
-			printf("received action type=%s, so calling agent_startVoice().\n", "start_voice");
-			g_start_mic = 1;
-			agent_startVoice();
-			return;
-		}
-		else if (strcmp(actionType.c_str(), "timer_set") == 0)
-		{
-			processReqSTTM(cmd);
-		}
-		else if (strcmp(actionType.c_str(), "media_url") == 0)
-		{
-			if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_PLMD") == 0)
-			{
-				cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-				if (cmdp_cmdOpt != NULL)
-				{
-					cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
-					cJSON *cmdp_actOnOther = cJSON_GetObjectItem(cmdp_cmdOpt, "actOnOther");
-					cJSON *cmdp_url = cJSON_GetObjectItem(cmdp_cmdOpt, "url");
-
-					printf("media_url, Req_PLMD, payload: {channel=%d,actOnOther=%s,url=%s}\n",
-						cmdp_channel->valueint, cmdp_actOnOther->valuestring, cmdp_url->valuestring);
-				}
-			}
-			else if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_UPMD") == 0)
-			{
-				cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-				if (cmdp_cmdOpt != NULL)
-				{
-					cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
-					cJSON *cmdp_act = cJSON_GetObjectItem(cmdp_cmdOpt, "act");
-					cJSON *cmdp_playtime = cJSON_GetObjectItem(cmdp_cmdOpt, "playtime");
-					cJSON *cmdp_setDssStatus = cJSON_GetObjectItem(cmdp_cmdOpt, "setDssStatus");
-					cJSON *cmdp_cleartime = cJSON_GetObjectItem(cmdp_cmdOpt, "clearDssStatus");
-					// channel = 1, act = pause, resume, stop, seek.
-					printf("media_url, Req_UPMD, {channel=%d,act=%s,playtime=%d, ...}\n",
-						cmdp_channel->valueint, cmdp_act->valuestring, cmdp_playtime->valueint);
-				}
-			}
-			else
-			{
-				printf("Something wrong in the media_url\n");
-			}
-		}		
-		else if (strcmp(actionType.c_str(), "dialog_response") == 0)
-		{
-			cJSON *cmdp_dialogResponseOpt = cJSON_GetObjectItem(cmdp_jsonObj, "dialogResponse");
-			if (cmdp_dialogResponseOpt != NULL)
-			{
-				char *pDialogResponseStr = cJSON_Print(cmdp_dialogResponseOpt);
-				printf("dialog_response, %s, dialogResponse = %s\n", msgType.c_str(), pDialogResponseStr);
-				free(pDialogResponseStr);
-			}
-		}
-		else if (strcmp(actionType.c_str(), "hardware_control") == 0)
-		{
-			if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_HWCL") == 0)
-			{
-				cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-				if (cmdp_cmdOpt != NULL)
-				{
-					cJSON *cmdp_target = cJSON_GetObjectItem(cmdp_cmdOpt, "target");
-					cJSON *cmdp_hwCmd = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmd");
-					cJSON *cmdp_hwCmdOpt = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmdOpt");
-					if (strcmp(cmdp_target->valuestring, "volume") == 0 && strcmp(cmdp_hwCmd->valuestring, "setVolume") == 0 && cmdp_hwCmdOpt != NULL)
-					{
-						cJSON *cmdp_control = cJSON_GetObjectItem(cmdp_hwCmdOpt, "control");
-						cJSON *cmdp_value = cJSON_GetObjectItem(cmdp_hwCmdOpt, "value");
-
-						printf("hardware_control, Req_HWCL, volume, setVolme:(%s, %s)\n", cmdp_control->valuestring, cmdp_value->valuestring);
-
-						if (strcmp(cmdp_control->valuestring, "UP") == 0)
-						{
-							printf("volume up!\n");
-						}
-						else
-						{
-							printf("volume down!\n");
-						}
-					}
-					else
-					{
-						printf("target=%s, cmd=%s\n", cmdp_target->valuestring, cmdp_hwCmd->valuestring);
-					}
-				}
-			}
-		}
-		else if (strcmp(actionType.c_str(), "webview_url") == 0)
-		{
-			if (strcmp(msgType.c_str(), "Req_OAuth") == 0 && cmdp_payload != NULL)
-			{
-				cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-				if (cmdp_cmdOpt != NULL)
-				{
-					cJSON *cmdp_oauth_url = cJSON_GetObjectItem(cmdp_cmdOpt, "oauth_url");
-
-					printf("webview_url, Req_OAuth, payload: {oauth_url=%s}\n", cmdp_oauth_url->valuestring);
-				}
-			}
-		}
-		else
-		{
-			printf("test application onCommand() Callback: wrong actionType=[%s], msgType=[%s]\n", actionType.c_str(), msgType.c_str());
-			if (msgType == "Res_TXCM")
-			{
-				printf("msgType=[%s], msgPayload=[%s]\n", msgType.c_str(), msgPayload.c_str());
-			}
-		}
+	    printf("test application onCommand() Callback: wrong actionType=[%s]\n", actionType.c_str());
+	    if (actionType == "Res_TXCM")
+	    {
+	        printf("Res_TXCM, msgPayload=[%s]\n", payload.c_str());
+	    }
 	}
-
-	cJSON_Delete(cmdp_jsonObj);
 }

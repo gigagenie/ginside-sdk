@@ -55,33 +55,6 @@ void forTestMethod() {
 
 void onEvent(int eventMask, std::string opt) {
 	switch (eventMask) {
-        case INSIDE_EVENT::VOICE_STOP:
-        	// TODO : 음성인식이 성공하고, 결과를 내려줄 때, 이 이벤트가 전달된다.
-        	// 필요 시 유저에게 어떤 단어가 인식됬는지 알려준다. (recognizedText)
-            // 만약 KWS 가 활성화 되어있다면, 호출어를 인식할 수 있게 KWS 를 시작해준다.
-            // 음성 녹음을 중단하고, 필요 시 UI 혹은 LED 등으로 녹음 중단을 알린다.
-        	printf("onEvent VOICE_STOP CALLED\n");
-
-        	// FLAG 처리
-        	// KWS 를 활성화시킨다.
-        	B_KWS = true;
-        	// 음성 녹음을 중단한다.
-        	B_RECORD = false;
-        	forTestMethod();
-            break;
-        case INSIDE_EVENT::VOICE_START:
-            // TODO : 음성 시작 요청이 성공하여 음성을 보내야 할 때 해당 이벤트가 온다.
-            // 만약 KWS 가 활성화 되어있다면, 호출어 인식을 중단한다.
-            // 음성 녹음을 시작하고, agent_sendVoice()로 입력된 데이터 stream을 16kHz Signed 16bit Linear PCM 데이터로 전달
-            // 필요 시 UI 혹은 LED 등으로 녹음 시작을 알린다..
-        	printf("onEvent VOICE_START CALLED\n");
-
-        	// FLAG 처리
-        	// KWS 를 중단한다.
-        	B_KWS = false;
-        	// 음성 녹음을 활성화한다.
-        	B_RECORD = true;
-            break;
         case INSIDE_EVENT::SERVER_ERROR:
             // TODO : 음성인식이 특정 오류로 인해 실패했을 때 해당 이벤트가 온다.
             // 에러 종류를 확인하고 필요 시 사용자에게 알린다.
@@ -163,173 +136,148 @@ void sendTmEvent(const char *pReqAct, const char *pActionTrx)
 	free(msgPayloadStr);
 }
 
-void onCommand(std::string cmd) {
+void onCommand(std::string actionType, std::string payload) { // v1.1.0
 	std::string	msgType, actionType, msgPayload, contentType;
 	const char* voiceData;
 	int voiceDataSize = 0;
-	cJSON *cmdp_jsonObj = cJSON_Parse(cmd.c_str());
-	if (cmdp_jsonObj != NULL) {
-		cJSON *cmdp_actionType = cJSON_GetObjectItem(cmdp_jsonObj, "actionType");
-		cJSON *cmdp_commandType = cJSON_GetObjectItem(cmdp_jsonObj, "commandType");	// commandType or contentType
-		cJSON *cmdp_contentType = cJSON_GetObjectItem(cmdp_jsonObj, "contentType");
-		cJSON *cmdp_payload = cJSON_GetObjectItem(cmdp_jsonObj, "payload");
+	
+	printf("onCommand -> actionType=[%s], payload=[%s]\n", actionType.c_str(), payload.c_str());
 
-		actionType = cmdp_actionType->valuestring;
+	if (strcmp(actionType.c_str(), "media_data") == 0) {
+	    // media_stream 일 때 처리
+	    std::string media = payload;
+	    std::string decoded = base64_decode(media);
 
-		msgType = "";
-		if (cmdp_commandType != NULL) {
-			msgType = cmdp_commandType->valuestring;
-		}
-		contentType = "";
-		if (cmdp_contentType != NULL) {
-			contentType = cmdp_contentType->valuestring;
-		}
+	    voiceDataSize = (int)decoded.size();
+	    voiceData = decoded.c_str();
 
-		printf("onCommand -> actionType=[%s], msgType=[%s], contentType=[%s]\n", actionType.c_str(), msgType.c_str(), contentType.c_str());
+	    // TODO : voiceData 를 이용하여 음성을 재생하고, 시작, 끝을 알려야한다.
+	    // agent_updateMediaStatus 메소드를 이용하여 SDK 에게 음성의 시작과 끝을 알려줘야한다.
 
-		if (strcmp(actionType.c_str(), "media_stream") == 0) {
-			if (strcmp(contentType.c_str(), "wav") == 0) {
-			    // media_stream 일 때 처리
-                cJSON *cmdp_mediastream = cJSON_GetObjectItem(cmdp_jsonObj, "mediastream");
-                std::string media = cmdp_mediastream->valuestring;
-                std::string decoded = base64_decode(media);
+	    // play -> voiceData
+	    // actionType="play_media"가 먼저 수신되며 이때 전달된 채널(channel) 정보를 관리하고,
+	    // actioType="media_data"로 wav file 수신하여 재생 시작/완료되면 해당 이벤트를 SDK로 전달한다. 
+	    // 시작 시 -> agent_updateMediaStatus(채널, "started", 0);
+	    // 종료 시 -> agent_updateMediaStatus(채널, "complete", 음성의 길이);
+	} else if (strcmp(actionType.c_str(), "start_voice") == 0) {
+	    // 재생중인 무언가가 있다면, 일시중지시킨다.
+	    // 만약 KWS 가 활성화 되어있다면, 호출어 인식을 중단한다.
+	    // 음성 녹음을 시작하고, agent_sendVoice()로 입력된 데이터 stream을 16kHz Signed 16bit Linear PCM 데이터로 전달
+	    // 필요 시 UI 혹은 LED 등으로 녹음 시작을 알린다.
 
-                voiceDataSize = (int)decoded.size();
-                voiceData = decoded.c_str();
+	    printf("onCommand start_voice CALLED\n");
 
-                // TODO : voiceData 를 이용하여 음성을 재생하고, 시작, 끝을 알려야한다.
-                // agent_updateMediaStatus 메소드를 이용하여 SDK 에게 음성의 시작과 끝을 알려줘야한다.
+	    // TODO : KWS 를 중지하고, 음성녹음을 시작한다.
+	    // FLAG 처리
+	    // KWS 를 중단한다.
+	    B_KWS = false;
+	    // 음성 녹음을 활성화한다.
+	    B_RECORD = true;
+	} else if (strcmp(actionType.c_str(), "stop_voice") == 0) {
+	    // 음성인식이 성공하고, 결과를 내려줄 때, 이 command가 전달된다.
+	    // 필요 시 유저에게 어떤 단어가 인식됬는지 알려준다. (uword)
+	    // stop_voice 이후 play_media나 SERVER_ERROR 이벤트가 수신될 때 까지 기다리고,
+	    // play_media 또는 SERVER_ERROR 이벤트 수신된 이후에 만약 KWS 가 활성화 되어있다면, 호출어를 인식할 수 있게 KWS 를 시작해준다.
+	    // 음성 녹음을 중단하고, 필요 시 UI 혹은 LED 등으로 녹음 중단을 알린다.
+	    printf("onCommand stop_voice CALLED\n");
 
-                // play -> voiceData
-                // 시작 시 -> agent_updateMediaStatus(채널, "started", 0);
-                // 종료 시 -> agent_updateMediaStatus(채널, "complete", 음성의 길이);
-			} else if (strcmp(contentType.c_str(), "pcm_stream") == 0) {
-                // 음성 스트림이 4096바이트 단위로 잘라져서 온다.
-                // end 값이 0일 때 시작, 1 진행중, 2 일 때 마지막 데이터이다.
-                // 단말에서는 스트림을 실시간으로 재생하여야 한다.
-                // 음성을 재생하고, 재생 시 이벤트를 SDK 로 전달해야 한다. 개발규격서의 agent_updateMediaStatus 부분을 확인한다.
+	    // FLAG 처리
+	    // KWS 를 활성화시킨다.
+	    B_KWS = true;
+	    // 음성 녹음을 중단한다.
+	    B_RECORD = false;
+	    forTestMethod();	    
+	} else if (strcmp(actionType.c_str(), "timer_set") == 0) {
+	    // 아래 메소드 참조
+	    processReqSTTM(cmd);
+	} else if (strcmp(actionType.c_str(), "play_media") == 0) {
+	    cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload != NULL) {
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL) {
+	              // 재생해야 할 채널, url 이 전달된다.
+	              // 다른 채널에 재생중인 미디어가 있다면, actOnOther 값에 따라 제어한다.
+	            // channel : 재생해야 할 채널
+	            cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
+	            // actOnOther : 기존에 재생중이던 미디어를 어떻게 제어할지에 대한 값
+	            cJSON *cmdp_actOnOther = cJSON_GetObjectItem(cmdp_cmdOpt, "actOnOther");
+	            // url : 재생해야 할 url
+	            cJSON *cmdp_url = cJSON_GetObjectItem(cmdp_cmdOpt, "url");
 
-                cJSON *cmdp_mediastream = cJSON_GetObjectItem(cmdp_jsonObj, "mediastream");
-                // end 값
-                cJSON *cmdp_end = cJSON_GetObjectItem(cmdp_jsonObj, "end");
+               // TODO : 위의 데이터를 가지고 재생을 시도한다.
+                 // 시작 시 -> agent_updateMediaStatus(채널, "started", 0);
+	        }
+	        cJSON_Delete(cmdp_payload);
+	    } 
+	} else if (strcmp(actionType.c_str(), "contorl_media") == 0) {
+        cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+        if (cmdp_payload != NULL) {
+              // 제어해야 할 채널, 동작 등의 값이 전달된다.
+              // 예를들어 channel=1, act="stop" 이라면, 1번 채널에 재생중인 미디어를 중지시킨다.
+            cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+            if (cmdp_cmdOpt != NULL) {
+                  // 제어할 채널
+                cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
+                  // 어떻게 제어할지
+                cJSON *cmdp_act = cJSON_GetObjectItem(cmdp_cmdOpt, "act");
+                  // 플레이시간
+                cJSON *cmdp_playtime = cJSON_GetObjectItem(cmdp_cmdOpt, "playtime");
+                  // 값이 존재하면 해당 dssStatus 세팅
+                cJSON *cmdp_setDssStatus = cJSON_GetObjectItem(cmdp_cmdOpt, "setDssStatus");
+                  // 값이 존재하면 해당 dssStatus 해제
+                cJSON *cmdp_cleartime = cJSON_GetObjectItem(cmdp_cmdOpt, "clearDssStatus");
 
-                std::string media = cmdp_mediastream->valuestring;
-                std::string decoded = base64_decode(media);
-                voiceDataSize = (int)decoded.size();
-                voiceData = decoded.c_str();
-
-                if(cmdp_end->valueint == 0) {
-                    // end 값이 0 일 때는 음성이 시작이다.
-                }
-                if(cmdp_end->valueint == 2) {
-                    // end 값이 2 일 때는 음성의 마지막 데이터이다.
-                }
-
-                // TODO : voiceData 를 이용하여 음성을 재생하고, 시작, 끝을 알려야한다.
-				// pcm_stream 일 때는, 음성이 일정 크기로 나눠서 들어오게되고, cmdp_end 값으로 시작과 끝을 알 수 있다.
-
-				// play -> voiceData
-				// 시작 시 -> agent_updateMediaStatus(채널, "started", 0);
-				// 종료 시 -> agent_updateMediaStatus(채널, "complete", 음성의 길이);
-                cJSON_Delete(cmdp_jsonObj);
-			}
-		} else if (strcmp(actionType.c_str(), "start_voice") == 0) {
-            // 재생중인 무언가가 있다면, 일시중지시킨다.
-            // 만약 KWS 가 활성화 되어있다면, 호출어 인식을 중단한다.
-            // 음성 녹음을 시작하고, agent_sendVoice()로 입력된 데이터 stream을 16kHz Signed 16bit Linear PCM 데이터로 전달
-            // 필요 시 UI 혹은 LED 등으로 녹음 시작을 알린다.
-
-			printf("onCommand VOICE_START CALLED\n");
-
-			// TODO : KWS 를 중지하고, 음성녹음을 시작한다.
-			// FLAG 처리
-			// KWS 를 중단한다.
-			B_KWS = false;
-			// 음성 녹음을 활성화한다.
-			B_RECORD = true;
-		} else if (strcmp(actionType.c_str(), "timer_set") == 0) {
-            // 아래 메소드 참조
-			processReqSTTM(cmd);
-		} else if (strcmp(actionType.c_str(), "media_url") == 0) {
-			if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_PLMD") == 0) {
-                // 재생해야 할 채널, url 이 전달된다.
-                // 다른 채널에 재생중인 미디어가 있다면, actOnOther 값에 따라 제어한다.
-                cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-                if (cmdp_cmdOpt != NULL) {
-                    // channel : 재생할 채널
-                    cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
-                    // actOnOther : 기존에 재생중이던 미디어를 어떻게 제어할지에 대한 값
-                    cJSON *cmdp_actOnOther = cJSON_GetObjectItem(cmdp_cmdOpt, "actOnOther");
-                    // 재생해야 할 url
-                    cJSON *cmdp_url = cJSON_GetObjectItem(cmdp_cmdOpt, "url");
-
-                    // TODO : 위의 데이터를 가지고 재생을 시도한다.
-                    // 시작 시 -> agent_updateMediaStatus(채널, "started", 0);
-                }
-			} else if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_UPMD") == 0) {
-                // 제어해야 할 채널, 동작 등의 값이 전달된다.
-                // 예를들어 channel=1, act="stop" 이라면, 1번 채널에 재생중인 미디어를 중지시킨다.
-                cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-                if (cmdp_cmdOpt != NULL) {
-                    // 제어할 채널
-                    cJSON *cmdp_channel = cJSON_GetObjectItem(cmdp_cmdOpt, "channel");
-                    // 어떻게 제어할지
-                    cJSON *cmdp_act = cJSON_GetObjectItem(cmdp_cmdOpt, "act");
-                    // 플레이시간
-                    cJSON *cmdp_playtime = cJSON_GetObjectItem(cmdp_cmdOpt, "playtime");
-                    // 값이 존재하면 해당 dssStatus 세팅
-                    cJSON *cmdp_setDssStatus = cJSON_GetObjectItem(cmdp_cmdOpt, "setDssStatus");
-                    // 값이 존재하면 해당 dssStatus 해제
-                    cJSON *cmdp_cleartime = cJSON_GetObjectItem(cmdp_cmdOpt, "clearDssStatus");
-
-                    // TODO : 위의 값을 가지고 처리한다.
-                    // channel = 1, act = pause 값이 들어왔다면.
-                    // 1번 채널의 음성을 pause 시키고 아래 메소드를 호출한다.
-                    // agent_updateMediaStatus(1, "paused", 현재시);
-                }
-			}
-		} else if (strcmp(actionType.c_str(), "dialog_response") == 0) {
-            // execType, execOpt 값에 따라 처리한다.
-            // 자세한 사항은 개발규격서를 참조한다.
-		} else if (strcmp(actionType.c_str(), "hardware_control") == 0) {
-			if (cmdp_payload != NULL && strcmp(msgType.c_str(), "Req_HWCL") == 0) {
-				cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-				if (cmdp_cmdOpt != NULL) {
+                // TODO : 위의 값을 가지고 처리한다.
+                // channel = 1, act = pause 값이 들어왔다면.
+                  // 1번 채널의 음성을 pause 시키고 아래 메소드를 호출한다.
+                // agent_updateMediaStatus(1, "paused", 현재시);
+            }
+            cJSON_Delete(cmdp_payload);
+        }
+	} else if (strcmp(actionType.c_str(), "exec_dialogkit") == 0) {
+	    // execType, execOpt 값에 따라 처리한다.
+	    // 자세한 사항은 개발규격서를 참조한다.
+	} else if (strcmp(actionType.c_str(), "control_hardware") == 0) {
+        cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload != NULL) {
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL) {
                     // 제어해야 할 대상과, 값이 전달된다.
                     // 블루투스 제어와 볼륨 컨트롤이 존재한다.
 					cJSON *cmdp_target = cJSON_GetObjectItem(cmdp_cmdOpt, "target");
 					cJSON *cmdp_hwCmd = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmd");
 					cJSON *cmdp_hwCmdOpt = cJSON_GetObjectItem(cmdp_cmdOpt, "hwCmdOpt");
 					if (strcmp(cmdp_target->valuestring, "volume") == 0 && strcmp(cmdp_hwCmd->valuestring, "setVolume") == 0 && cmdp_hwCmdOpt != NULL) {
-						// 볼륨을 조절한다.
-                        cJSON *cmdp_control = cJSON_GetObjectItem(cmdp_hwCmdOpt, "control");
-                        cJSON *cmdp_value = cJSON_GetObjectItem(cmdp_hwCmdOpt, "value");
+					     // 볼륨을 조절한다.
+					    cJSON *cmdp_control = cJSON_GetObjectItem(cmdp_hwCmdOpt, "control");
+					    cJSON *cmdp_value = cJSON_GetObjectItem(cmdp_hwCmdOpt, "value");
 
-                        // TODO : control, value 값에 따라 제어한다.
-                        // if (strcmp(cmdp_control->valuestring, "UP") == 0)
-                        //		이 경우 단말의 볼륨을 UP 시킨다.
-                        // else
-                        // 		이 경우 단말의 볼륨을 DOWN 시킨다.
+					     // TODO : control, value 값에 따라 제어한다.
+					     // if (strcmp(cmdp_control->valuestring, "UP") == 0)
+					      //		이 경우 단말의 볼륨을 UP 시킨다.
+					     // else
+					      // 		이 경우 단말의 볼륨을 DOWN 시킨다.
 					} else {
-                        // TODO : 블루투스 제어를 한다.
-                        // 자세한 내용은 개발규격서를 참조한다.
+					     // TODO : 블루투스 제어를 한다.
+					      // 자세한 내용은 개발규격서를 참조한다.
 					}
-				}
-			}
-		} else if (strcmp(actionType.c_str(), "webview_url") == 0) {
-			if (strcmp(msgType.c_str(), "Req_OAuth") == 0 && cmdp_payload != NULL) {
-                // 실행해야 할 web url 이 전달된다.
-                cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
-                if (cmdp_cmdOpt != NULL) {
-                    cJSON *cmdp_oauth_url = cJSON_GetObjectItem(cmdp_cmdOpt, "oauth_url");
+	        }
+	        cJSON_Delete(cmdp_payload);
+	    }
+	} else if (strcmp(actionType.c_str(), "webview_url") == 0) {
+	    cJSON *cmdp_payload = cJSON_Parse(payload.c_str());
+	    if (cmdp_payload != NULL) {
+	         // 실행해야 할 web url 이 전달된다.
+	        cJSON *cmdp_cmdOpt = cJSON_GetObjectItem(cmdp_payload, "cmdOpt");
+	        if (cmdp_cmdOpt != NULL) {
+	            cJSON *cmdp_oauth_url = cJSON_GetObjectItem(cmdp_cmdOpt, "oauth_url");
 
-                    // TODO: 해당 값이 온다면, 지니뮤직 로그인이 필요한 상태이다.
-                    // 브라우저 혹은 페어링 된 기가지니 앱 등을 이용하여 지니뮤직에 로그인 하도록 유도한다.
-                }
-			}
+	            // TODO: 해당 값이 온다면, 지니뮤직 로그인이 필요한 상태이다.
+	             // 브라우저 혹은 페어링 된 기가지니 앱 등을 이용하여 지니뮤직에 로그인 하도록 유도한다.
+	        }
+			cJSON_Delete(cmdp_payload);
 		}
 	}
-	cJSON_Delete(cmdp_jsonObj);
 }
 
 void* sendVoice(void* param) {

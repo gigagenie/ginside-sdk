@@ -47,8 +47,8 @@ namespace INSIDE_EVENT {
 	const int TIMEOUT_STOP_VOICE = 602; // req_strv 수신 후 음성데이터를 보낸 시점부터 10초 뒤에 REQ_STPV 응답을 못받았을 때.
 	const int TIMEOUT_RECEIVE_DATA = 603; // req_stpv 수신 후에 아무런 데이터를 못받았을 때.
 
-	const int VOICE_START = 201;
-	const int VOICE_STOP = 202;
+	//const int VOICE_START = 201; // v1.1.0 removed
+	//const int VOICE_STOP = 202; // v1.1.0 removed
 	const int SERVER_ERROR = 205;
 }
 

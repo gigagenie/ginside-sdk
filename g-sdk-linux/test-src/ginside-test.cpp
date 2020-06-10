@@ -32,7 +32,8 @@ SOFTWARE.
 
 #include  "test_api.h"
 #include  "agent_callback.h"
-
+#include  "base64.h"
+#include  "cJSON.h"
 
 void usage()
 {
@@ -44,6 +45,7 @@ void usage()
 	printf("0) agent_serviceLogin a) dialog test        b) kws_init\n");
 	printf("c) kws_detect         e) kws_setKeyword     f) agent_setServerInfo\n");
 	printf("g) agent_getVersion   i) agent_setLocation  j) agent_setModelPath\n");
+	printf("k) agent_serviceLoginStatus                 l) agent_serviceLogout\n"); // v1.1.0
 	printf("x, q) Exit this program!\n");
 	puts("");
 }
@@ -103,6 +105,11 @@ int main()
 	rc.rc = 0;
 	rc.uuid = "";
 	rc.rcmsg = "";
+
+	std::string gettts_result;
+	int voiceDataSize = 0;
+	const char* voiceData;
+	cJSON *cmdp_jsonObj;
 
 	usage();
 	loop_exit = 0;
@@ -183,7 +190,31 @@ int main()
 			test_stopVoice();
 			break;
 		case '9':
-			test_getTTS();
+		    gettts_result = test_getTTS();
+		    cmdp_jsonObj = cJSON_Parse(gettts_result.c_str());
+		    if (cmdp_jsonObj != NULL) {
+		        cJSON *rc = cJSON_GetObjectItem(cmdp_jsonObj, "rc");
+		        cJSON *rcmsg = cJSON_GetObjectItem(cmdp_jsonObj, "rcmsg");
+		        if(rc != NULL && rcmsg != NULL) {
+		            if(rc->valueint == 200) {
+		                std::string media(rcmsg->valuestring);
+		                std::string decoded = base64_decode(media);             
+		                printf("Successful getTTS and media size=[%d]\n", decoded.size());
+                        
+		                voiceDataSize = (int)decoded.size();
+		                voiceData = decoded.c_str();
+		                printf("Writing data to a file with a size, %d\n", voiceDataSize);
+
+		                fp = fopen("getttswav", "w+b");
+		                if (fp != NULL) {
+		                    fwrite(voiceData, 1, voiceDataSize, fp);
+		                    fclose(fp);
+		                    fp = NULL;
+		                }
+		            }
+		        }
+		        cJSON_Delete(cmdp_jsonObj);
+		    }
 			break;
 		case '0':
 			test_serviceLogin();
@@ -220,6 +251,14 @@ int main()
 		case 'J':
 			test_setModelPath();
 			break;
+		case 'k':
+		case 'K':
+		    test_serviceLoginStatus();
+		    break;
+		case 'l':
+		case 'L':
+		    test_serviceLogout();
+		    break;
 		case 'x':
 		case 'X':
 		case 'q':

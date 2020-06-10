@@ -1,7 +1,7 @@
 ## GiGA Genie Inside Device SDK for Android release
 
 ### Files
-* g-sdk-android_1.0.x.aar : G-SDK Android Library
+* g-sdk-android_1.1.x.aar : G-SDK Android Library
 * kwsrnet-release.aar : KWS-S Android Library
 
 ### gradle 외부 라이브러리 추가 설정

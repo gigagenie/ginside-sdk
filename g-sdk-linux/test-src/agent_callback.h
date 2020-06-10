@@ -52,7 +52,6 @@ THREAD_RET_TYPE THREAD_CALLING_CONVENTION MicThread(void *arg);
 
 
 void onEvent(int eventMask, std::string opt);
-void onCommand(std::string cmd);
-
+void onCommand(std::string actionType, std::string payload); // v1.1.0
 
 #endif	// __AGENT_CALLBACK_H__

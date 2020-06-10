@@ -2,6 +2,36 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## Device SDK v1.1.0 (2020-06-10)
+#### Common
+* Version up from v1.0.x to v1.1.x
+  - 주요 변경사항은 [Upgrading_from_v1.0_to_v1.1.md](docs/Upgrading_from_v1.0_to_v1.1.md) 참고
+#### Android Device SDK
+* (UPDATE) agent_onCommand: Parameter 변경
+* (UPDATE) agent_onCommand: actionType name 변경
+* (UPDATE) agent_onEvent의 START_VIOCE, STOP_VOICE를 agent_onCommand로 대체
+* (UPDATE) agent_getTTS API return 방식 변경: 기존 agent_onCommand에서 API 호출 시 바로 return 받도록 수정
+* (ADD) agent_serviceLoginStatus API, agent_serviceLogout API 추가
+* (ADD) SDK 버전 정보 서버로 전송 : g-sdk-android/1.1.0 (SDK_VERSION)
+* (FIX) debugmode : true 인 경우에만 log 정보 전달
+#### Linux Device SDK
+* (UPDATE) agent_onCommand: Parameter 변경
+* (UPDATE) agent_onCommand: actionType name 변경
+* (UPDATE) agent_onEvent의 START_VIOCE, STOP_VOICE를 agent_onCommand로 대체
+* (UPDATE) agent_getTTS API return 방식 변경: 기존 agent_onCommand에서 API 호출 시 바로 return 받도록 수정
+* (ADD) agent_serviceLoginStatus API, agent_serviceLogout API 추가
+* (ADD) x-client-version 추가 : g-sdk-linux/1.1.0 (SDK_VERSION)
+* (FIX) Res_STCK 수신 후 음성인식 Timer 해제
+#### Windows Device SDK
+* (NEW) 32bit 운영체제 지원
+* (UPDATE) agent_onCommand: Parameter 변경
+* (UPDATE) agent_onCommand: actionType name 변경
+* (UPDATE) agent_onEvent의 START_VIOCE, STOP_VOICE를 agent_onCommand로 대체
+* (UPDATE) agent_getTTS API return 방식 변경: 기존 agent_onCommand에서 API 호출 시 바로 return 받도록 수정
+* (ADD) agent_serviceLoginStatus API, agent_serviceLogout API 추가
+* (ADD) x-client-version 추가 : g-sdk-windows/1.1.0 (SDK_VERSION)
+* (FIX) Res_STCK 수신 후 음성인식 Timer 해제
+
 ## Mobile SDK for iOS v2.0.2beta (2020-04-22)
 * (UPDATE) Snd_SVEV에서 type이 "standby"로 전달 되는 경우 onEvent의 GO_TO_STANDBY 이벤트 전달
 * (FIX) bundle id 체크 로직 수정

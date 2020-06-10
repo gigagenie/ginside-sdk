@@ -46,6 +46,9 @@ extern int	g_start_dialog, g_dialog_count;
 bool isInit = false;
 bool isKwsInit = false;
 
+std::string g_clientId = "";
+std::string g_clientKey = "";
+std::string g_clientSecret = "";
 
 THREAD_HANDLE SpawnThread(THREAD_RET_TYPE(THREAD_CALLING_CONVENTION *func)(void *), void *arg)
 {
@@ -174,7 +177,12 @@ void test_init(std::string ID, std::string KEY, std::string SECRET, char *puuid)
 {
 	REGISTER_CODE rc;
 
-	printf("Calling agent_init().\n");
+	printf("Calling agent_init(), isInit=%d.\n",isInit);
+	if(isInit && g_clientId == ID && g_clientKey == KEY && g_clientSecret == SECRET) { // v1.1.1
+	    printf("already agent_init() succeed.\n");
+	    return;    
+	}
+	
 	rc = agent_init(ID, KEY, SECRET, puuid);
 	if (rc.rc == 200)
 	{
@@ -453,27 +461,39 @@ void test_stopVoice() {
 }
 
 //		case '9':
-void test_getTTS() {
+std::string test_getTTS() {
 	if(!isInit) {
 		printf("agent_getTTS failed. call agent_init first!\n");
-		return;
+        
+		cJSON *root = cJSON_CreateObject();
+		cJSON_AddItemToObject(root, "rc", cJSON_CreateNumber(500));
+		cJSON_AddItemToObject(root, "rcmsg", cJSON_CreateString("Internal SDK error"));
+        
+		char *msgPayloadStr = cJSON_Print(root);    
+		std::string sendmsg(msgPayloadStr);
+		free(msgPayloadStr);
+		cJSON_Delete(root);
+
+		return sendmsg;
 	}
 
-	char outbuf[4096];
+	char inbuf[4096];
 	size_t length;
 
-	memset(outbuf, 0x0, sizeof(outbuf));
+	memset(inbuf, 0x0, sizeof(inbuf));
 	printf("Type the text to send to a TTS >>> ");
-	fgets(outbuf, sizeof(outbuf), stdin);
-	length = strlen(outbuf);
+	fgets(inbuf, sizeof(inbuf), stdin);
+	length = strlen(inbuf);
 	if (length <= 0) {
 		printf("nothing to send, so returned to a main menu\n");
 	} else {
-		if (outbuf[length - 1] == '\n') outbuf[length - 1] = 0x0;
+		if (inbuf[length - 1] == '\n') inbuf[length - 1] = 0x0;
 	}
 
-	printf("calling agent_getTTS() with a text, [%s]\n", outbuf);
-	agent_getTTS(outbuf);
+	printf("calling agent_getTTS() with a text, [%s]\n", inbuf);
+	std::string sendmsg = agent_getTTS(inbuf);
+	printf("agent_getTTS got %s\n", sendmsg.c_str());
+	return sendmsg;	
 }
 
 //		case '0':
@@ -858,6 +878,80 @@ void test_setModelPath() {
 		printf("kws_setModelPath returned %d\n", kws_setModelPath(ch));
 		loop_exit = 1;
 	}
+}
+
+//      case 'k':
+void test_serviceLoginStatus() {
+    if(!isInit) {
+        printf("agent_serviceLoginStatus failed. call agent_init first!\n");
+        return;
+    }
+
+    printf("calling agent_serviceLoginStatus('geniemusic')\n");
+    std::string strRet = agent_serviceLoginStatus("geniemusic");
+    printf("returned %s\n", strRet.c_str());
+    if (strRet.size() > 0)
+    {
+        cJSON *cmdp_jsonObj = cJSON_Parse(strRet.c_str());
+        if (cmdp_jsonObj == NULL)
+        {
+            printf("ERROR: agent_serviceLoginStatus returns %s\n", strRet.c_str());
+        }
+        else
+        {
+            cJSON *cmdp_rc = cJSON_GetObjectItem(cmdp_jsonObj, "rc");
+            cJSON *cmdp_rcmsg = cJSON_GetObjectItem(cmdp_jsonObj, "rcmsg");
+            if (cmdp_rc->valueint == 200)
+            {
+                printf("agent_serviceLoginStatus returned, [%s]\n\n", strRet.c_str());
+
+                cJSON *cmdp_oauth_status = cJSON_GetObjectItem(cmdp_jsonObj, "oauth_status");
+                cJSON *cmdp_oauth_token = cJSON_GetObjectItem(cmdp_jsonObj, "oauth_token");
+                cJSON *cmdp_user_name = cJSON_GetObjectItem(cmdp_jsonObj, "user_name");
+                if(cmdp_oauth_status != NULL) {
+                    printf("oauth_status : %s\n", cmdp_oauth_status->valuestring);
+                }
+                if(cmdp_oauth_token != NULL) {
+                    printf("oauth_token : %s\n", cmdp_oauth_token->valuestring);
+                }
+                if(cmdp_user_name != NULL) {
+                    printf("user_name : %s\n", cmdp_user_name->valuestring);
+                }
+            }
+            else
+            {
+                printf("ERROR: agent_serviceLoginStatus returns an error, return code=%d, msg=%s\n", cmdp_rc->valueint, cmdp_rcmsg->valuestring);
+            }
+            cJSON_Delete(cmdp_jsonObj);
+        }
+    }
+}
+
+//      case 'k':
+void test_serviceLogout() {
+    if(!isInit) {
+        printf("agent_serviceLogout failed. call agent_init first!\n");
+        return;
+    }
+
+    printf("calling agent_serviceLogout('geniemusic')\n");
+    std::string strRet = agent_serviceLogout("geniemusic");
+    printf("returned %s\n", strRet.c_str());
+    if (strRet.size() > 0)
+    {
+        cJSON *cmdp_jsonObj = cJSON_Parse(strRet.c_str());
+        if (cmdp_jsonObj == NULL)
+        {
+            printf("ERROR: agent_serviceLogout returns %s\n", strRet.c_str());
+        }
+        else
+        {
+            cJSON *cmdp_rc = cJSON_GetObjectItem(cmdp_jsonObj, "rc");
+            cJSON *cmdp_rcmsg = cJSON_GetObjectItem(cmdp_jsonObj, "rcmsg");
+            printf("agent_serviceLogout returns, result code=%d, msg=%s\n", cmdp_rc->valueint, cmdp_rcmsg->valuestring);
+            cJSON_Delete(cmdp_jsonObj);
+        }
+    }
 }
 
 void test_kws(int kwsId)

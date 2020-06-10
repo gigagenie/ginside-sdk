@@ -2,6 +2,11 @@
 
 ## What's New?
 
+* Device SDK v1.1.0 released(2020-06-10)
+  - Device SDK가 v1.0.3에서 **v1.1.0**으로 업데이트 되었습니다.
+  - Device SDK 버전 변경에 따라 SDK 이용하는 [**앱에서 수정해야 하는 사항**](docs/Upgrading_from_v1.0_to_v1.1.md)을 반드시 참고하시기 바랍니다.
+  - *Device SDK v1.0.3은 [여기](https://github.com/gigagenie/ginside-sdk/releases/tag/r20200422)에서 내려받을 수 있습니다.*
+* Windows Device SDK 32-bit 지원(2020-06-10)
 * Mobile SDK for iOS v2.0.2beta released (2020-04-22)
 * Device SDK for Linux/Android/Windows v1.0.3 released (2020-04-17)
 * Mobile SDK for Android v2.0.7 released (2020-04-17)
@@ -33,7 +38,7 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * Device SDK
   - Android API level 19 or later
   - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W), ARM Cortex-A53
-  - Windows 64-bit
+  - Windows 64-bit, 32-bit
 * Mobile SDK
   - Android API level 22 or later, iOS 9 or later
 * G-API

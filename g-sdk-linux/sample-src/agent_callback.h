@@ -24,7 +24,7 @@ SOFTWARE.
 #define  __AGENT_CALLBACK_H__
 
 void onEvent(int eventMask, std::string opt);
-void onCommand(std::string cmd);
+void onCommand(std::string cmd, std::string payload);
 
 #endif	// __AGENT_CALLBACK_H__
 

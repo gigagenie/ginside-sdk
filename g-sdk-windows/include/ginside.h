@@ -43,7 +43,7 @@ DLL_EXPORT void agent_sendText(std::string msg);
 
 DLL_EXPORT void agent_sendVoice(short data[], int size);
 
-typedef void (*agent_onCommand)(std::string cmd);
+typedef void (*agent_onCommand)(std::string actionType, std::string payload);
 typedef void (*agent_onEvent)(int eventMask, std::string opt);
 DLL_EXPORT void agent_setCommandEventCallback(agent_onCommand aoc, agent_onEvent aoe);
 
@@ -53,9 +53,11 @@ DLL_EXPORT void agent_updateMediaStatus(int ch, std::string state, int playtime)
 
 DLL_EXPORT void agent_startVoice();
 DLL_EXPORT void agent_stopVoice();
-DLL_EXPORT void agent_getTTS(std::string msg);
+DLL_EXPORT std::string agent_getTTS(std::string msg);
 
 DLL_EXPORT std::string agent_serviceLogin(std::string service_type, std::string return_url);
+DLL_EXPORT std::string agent_serviceLoginStatus(std::string service_type);
+DLL_EXPORT std::string agent_serviceLogout(std::string service_type);
 
 DLL_EXPORT void agent_debugmode(bool enable);
 

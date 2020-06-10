@@ -47,7 +47,8 @@ void test_startVoice();
 //		case '8':
 void test_stopVoice();
 //		case '9':
-void test_getTTS();
+//void test_getTTS();
+std::string test_getTTS();
 //		case '0':
 void test_serviceLogin();
 //		case 'a':
@@ -66,6 +67,10 @@ void test_getVersion();
 void test_setLocation();
 //		case 'j':
 void test_setModelPath();
+//     case 'k':
+void test_serviceLoginStatus();
+//     case 'l':
+void test_serviceLogout();
 
 void test_all_kws();
 
