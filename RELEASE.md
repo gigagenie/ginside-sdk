@@ -1,6 +1,9 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+## Device SDK for Linux-WebSocket v1.1.0 (2020-06-18)
+* (NEW) initial public release
+  - SEE g-sdk-linux-ws/
 
 ## Device SDK v1.1.0 (2020-06-10)
 #### Common

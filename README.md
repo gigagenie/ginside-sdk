@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* Device SDK for Linux-WebSocket v1.1.0 released(2020-06-18)
 * Device SDK v1.1.0 released(2020-06-10)
   - Device SDK가 v1.0.3에서 **v1.1.0**으로 업데이트 되었습니다.
   - Device SDK 버전 변경에 따라 SDK 이용하는 [**앱에서 수정해야 하는 사항**](docs/Upgrading_from_v1.0_to_v1.1.md)을 반드시 참고하시기 바랍니다.
@@ -54,6 +55,7 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * docs/ : Developer Guide, etc.
 * g-sdk-android/ : Device SDK for Android 라이브러리
 * g-sdk-linux/ : Device SDK for Linux 라이브러리 및 샘플 클라이언트
+* g-sdk-linux-ws/ : Device SDK for Linux WebSocket 라이브러리
 * g-sdk-windows/ : Device SDK for Windows 라이브러리
 * g-plugin-android/ : Mobile SDK for Android 라이브러리 및 개발자 가이드
 * g-plugin-ios/ : Mobile SDK for iOS 라이브러리 및 개발자 가이드
