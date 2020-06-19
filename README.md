@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* Device SDK Sample Client Source for Android/Windows released(2020-06-19)
 * Device SDK for Linux-WebSocket v1.1.0 released(2020-06-18)
 * Device SDK v1.1.0 released(2020-06-10)
   - Device SDK가 v1.0.3에서 **v1.1.0**으로 업데이트 되었습니다.
@@ -18,19 +19,23 @@ GiGA Genie Inside(이하, G-INSIDE)는 3rd party 개발자가 자신들의 제�
 
 ## GiGA Genie Inside SDK 개요
 
-GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mobile SDK, Device API 등을 제공합니다.
+GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mobile SDK, G-INSIDE API 등을 제공합니다.
 
 * GiGA Genie Inside Device SDK(G-SDK)
 
-  Linux, Android(AOSP), Windows, Web 등 단말 플랫폼별로 제공되며, 마이크(mic)에 대한 제어는 3rd party에서 처리
+  Linux, Android(AOSP), Windows, Web 등 단말 플랫폼별로 제공되며, 마이크(mic)에 대한 제어는 3rd party에서 처리  
+  Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows)
 
 * GiGA Genie Inside Mobile SDK(G-Plugin)
 
   Android, iOS 등 스마트폰 앱에 기가지니를 탑재하기 위한 용도로 사용 권장, 마이크(mic)에 대한 제어는 G-Plugin 내에서 처리
 
-* GiGA Genie Inside Device API(G-API)
+* GiGA Genie Inside API(G-INSIDE API)
 
-  G-SDK와 G-Plugin에서 사용되는 기가지니 Cloud AI Platform에서 제공하는 API로 HTTP/2 기반 gRPC와 HTTP/1.1 기반 WebSocket 프로토콜 지원
+  G-SDK와 G-Plugin에서 사용되는 기가지니 Cloud AI Platform에서 제공하는 API로 HTTP/2 기반 gRPC와 HTTP/1.1 기반 WebSocket 프로토콜 지원  
+  Sample Client Source using gRPC protocol : [sample-client-node](https://github.com/gigagenie/sample-client-node), [sample-client-python](https://github.com/gigagenie/sample-client-python)    
+  Sample Client Source using WebSocket protocol : [sample-client-web](https://github.com/gigagenie/sample-client-web)  
+  
   > G-API 스펙은 별도 공간을 통해 오픈 예정입니다.
 
 ## Supported Platform
