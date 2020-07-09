@@ -14,26 +14,24 @@
 
 ## Supported Platforms
 * Ubuntu Linux
-  * Ubuntu x86_64 : OpenSSL 1.1 required
+  * Ubuntu x86_64 : build with Protobuf v3.12.3, gRPC v1.30.0, cJSON v1.7.x, OpenSSL 1.1
 * CentOS Linux
-  * CentOS x86_64 : OpenSSL 1.0 required
+  * CentOS x86_64 : build with Protobuf v3.12.3, gRPC v1.30.0, cJSON v1.7.x, OpenSSL 1.0
 * Raspbian for Raspberry Pi
-  * Raspbian armv7l : OpenSSL 1.1 required
+  * Raspbian armv7l : OpenSSL 1.1
 * Embedded Linux
   * G-INSIDE Reference H/W(Yocto Linux aarch64)
     - lib dependency: libprotoc 3.6.1, grpc 1.14.1, cJSON 1.7.12, OpenSSL 1.0.2g
   * ARM Cortex-A53
 
 ## SDK 이용을 위해 아래 라이브러리가 필요합니다.
-* [gRPC](#grpc-installation)
-* [cJSON](#cjson-installation)
+* [Protocol Buffers](#protocol-buffers)
+* [gRPC](#grpc)
+* [cJSON](#cjson)
 * OpenSSL
 
-## gRPC installation
+### Build tools
 
-https://github.com/grpc/grpc/blob/v1.22.0/src/cpp/README.md
-
-### Pre-requistes
 ```
 [Ubuntu]
 $ sudo apt-get install build-essential autoconf automake libtool pkg-config curl make cmake g++ unzip git
@@ -46,46 +44,37 @@ $ sudo yum install cmake
 $ sudo apt-get install autoconf automake libtool cmake
 ```
 
-### Protobuf
-```
-$ git clone https://github.com/protocolbuffers/protobuf.git
-$ cd protobuf
-$ git submodule update --init --recursive
-$ ./autogen.sh
+### [Protocol Buffers](https://github.com/protocolbuffers/protobuf)
+1. Visit [Protobuf latest release](https://github.com/protocolbuffers/protobuf/releases/latest)
+2. Download [protobuf-cpp-[VERSION].tar.gz](https://github.com/protocolbuffers/protobuf/releases/latest)
+3. Build & Install
+   ```
+   $ ./configure
+   $ make
+   $ make check
+   $ sudo make install
+   $ sudo ldconfig
+   ```
+   
+### [gRPC](https://github.com/grpc/grpc)
 
-$ ./configure
-$ make
-$ make check
-$ sudo make install
-$ sudo ldconfig
-```
-or
-```
-Visit to https://github.com/protocolbuffers/protobuf/releases/latest
-Download protobuf-cpp-[VERSION].tar.gz
-build & install
-```
+    ```
+    $ git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+    $ cd grpc
+    $ git submodule update --init
+    $ make
+    $ sudo make install
+    ```
 
-### gRPC C++
-```
-$ git clone -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
-$ cd grpc
-$ git submodule update --init
-$ make
-$ sudo make install
-```
+### [cJSON](https://github.com/DaveGamble/cJSON)
 
-## cJSON installation
-
-https://github.com/DaveGamble/cJSON/blob/master/README.md
-
-```
-$ git clone https://github.com/DaveGamble/cJSON
-$ cd cJSON
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
-$ sudo make install
-$ sudo ldconfig
-```
+    ```
+    $ git clone https://github.com/DaveGamble/cJSON
+    $ cd cJSON
+    $ mkdir build
+    $ cd build
+    $ cmake ..
+    $ make
+    $ sudo make install
+    $ sudo ldconfig
+    ```
