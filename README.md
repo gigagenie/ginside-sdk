@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* Device SDK 개발 가이드를 이제 [Wiki page](https://github.com/gigagenie/ginside-sdk/wiki)에서 확인하실 수 있습니다.(2020-07-10)
 * Device SDK Sample Client Source for Android/Windows released(2020-06-19)
 * Device SDK for Linux-WebSocket v1.1.0 released(2020-06-18)
 * Device SDK v1.1.0 released(2020-06-10)
@@ -10,7 +11,6 @@
   - *Device SDK v1.0.3은 [여기](https://github.com/gigagenie/ginside-sdk/releases/tag/r20200422)에서 내려받을 수 있습니다.*
 * Windows Device SDK 32-bit 지원(2020-06-10)
 * Mobile SDK for iOS v2.0.2beta released (2020-04-22)
-* Device SDK for Linux/Android/Windows v1.0.3 released (2020-04-17)
 * Mobile SDK for Android v2.0.7 released (2020-04-17)
 
 ## GiGA Genie Inside 란?
@@ -24,7 +24,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
 * GiGA Genie Inside Device SDK(G-SDK)
 
   Linux, Android(AOSP), Windows, Web 등 단말 플랫폼별로 제공되며, 마이크(mic)에 대한 제어는 3rd party에서 처리  
-  Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows), [Linux Sample Client Source/GRPC](https://github.com/gigagenie/sample-client-linux-grpc), [Linux Sample Client Source/WebSocket](https://github.com/gigagenie/sample-client-linux-websocket)
+  Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows), [Linux Sample Client Source/gRPC](https://github.com/gigagenie/sample-client-linux-grpc), [Linux Sample Client Source/WebSocket](https://github.com/gigagenie/sample-client-linux-websocket)
 
 * GiGA Genie Inside Mobile SDK(G-Plugin)
 
