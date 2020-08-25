@@ -1,6 +1,13 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+## Device SDK for Linux/Android/Windows v1.2.0 (2020-08-25)
+#### Common
+* (ADD) agent_setConfig API 추가
+* (ADD) agent_onEvent : SET_CONFIG_SUCCESS, SET_CONFIG_FAIL 추가
+#### Android Device SDK
+* (FIX) dssStatus가 없는 경우 해당 key에 대해 빈값[]으로 서버에 전송하도록 수정
+
 ## Device SDK for Linux-WebSocket v1.1.0 (2020-06-18)
 * (NEW) initial public release
   - SEE g-sdk-linux-ws/
