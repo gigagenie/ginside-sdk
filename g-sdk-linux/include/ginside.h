@@ -27,9 +27,9 @@ DLL_EXPORT const char* agent_getVersion();
 
 typedef struct
 {
-	int rc;
-	std::string rcmsg;
-	std::string uuid;
+    int rc;
+    std::string rcmsg;
+    std::string uuid;
 } REGISTER_CODE;
 
 DLL_EXPORT REGISTER_CODE agent_register(std::string client_id, std::string client_key, std::string client_secret, std::string user_id);
@@ -43,8 +43,7 @@ DLL_EXPORT void agent_sendText(std::string msg);
 
 DLL_EXPORT void agent_sendVoice(short data[], int size);
 
-//typedef void (*agent_onCommand)(std::string cmd);
-typedef void (*agent_onCommand)(std::string actionType, std::string payload); // v1.1.0
+typedef void (*agent_onCommand)(std::string actionType, std::string payload);
 typedef void (*agent_onEvent)(int eventMask, std::string opt);
 DLL_EXPORT void agent_setCommandEventCallback(agent_onCommand aoc, agent_onEvent aoe);
 
@@ -54,20 +53,18 @@ DLL_EXPORT void agent_updateMediaStatus(int ch, std::string state, int playtime)
 
 DLL_EXPORT void agent_startVoice();
 DLL_EXPORT void agent_stopVoice();
-//DLL_EXPORT void agent_getTTS(std::string msg);
-DLL_EXPORT std::string agent_getTTS(std::string msg); // v1.1.0
+DLL_EXPORT std::string agent_getTTS(std::string msg);
 
 DLL_EXPORT std::string agent_serviceLogin(std::string service_type, std::string return_url);
-
-DLL_EXPORT std::string agent_serviceLoginStatus(std::string service_type); // v1.1.0
+DLL_EXPORT std::string agent_serviceLoginStatus(std::string service_type);
 DLL_EXPORT std::string agent_serviceLogout(std::string service_type);
 
 DLL_EXPORT void agent_debugmode(bool enable);
 
 DLL_EXPORT void agent_reset();
 
-// SDK version
-#define  SDK_VER            "1.1.0" // v1.1.0
+DLL_EXPORT void agent_setConfig(std::string config);
+DLL_EXPORT void agent_setCustomVersion(std::string appName, std::string version);
 
 #define  KWS_ERR_SUCCESS			0
 #define  KWS_ERR_NO_DIRECTORY		-1

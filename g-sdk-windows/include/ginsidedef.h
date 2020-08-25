@@ -34,20 +34,25 @@
 
 #define  CMD_REQ_EXEC		"Req_EXEC"  // Device --> Service
 #define  CMD_REQ_OAUTH		"Req_OAuth" // Device --> Service
-#define  CMD_SND_ERR		"Snd_ERR"	// ?
+#define  CMD_SND_ERR        "Snd_ERR"	// ?
+
+#define  CMD_REQ_CONF		"Req_CONF"  // Device --> Server
+#define  CMD_RES_CONF       "Res_CONF"  // Server --> Device
 
 
 namespace INSIDE_EVENT {
-	const int GRPC_INIT_SUCCESS = 0;
-	const int GRPC_INIT_FAIL = 1; // add 190925
-	const int GRPC_DISCONNECTED = 2; // add 190925
-	const int GO_TO_STANDBY = 3; // add 200408
+const int GRPC_INIT_SUCCESS = 0;
+const int GRPC_INIT_FAIL = 1; // add 190925
+const int GRPC_DISCONNECTED = 2; // add 190925
+const int GO_TO_STANDBY = 3; // v1.0.3_04010916
+const int SET_CONFIG_SUCCESS = 4;
+const int SET_CONFIG_FAIL = 5;
 
-	const int TIMEOUT_START_VOICE = 601; // req_vocm Àü¼Û ÈÄ¿¡ res_vocm À» Àü´Ş¹ŞÁö ¸øÇßÀ»
-	const int TIMEOUT_STOP_VOICE = 602; // req_strv ¼ö½Å ÈÄ À½¼ºµ¥ÀÌÅÍ¸¦ º¸³½ ½ÃÁ¡ºÎÅÍ 10ÃÊ µÚ¿¡ REQ_STPV ÀÀ´äÀ» ¸ø¹Ş¾ÒÀ» ¶§.
-	const int TIMEOUT_RECEIVE_DATA = 603; // req_stpv ¼ö½Å ÈÄ¿¡ ¾Æ¹«·± µ¥ÀÌÅÍ¸¦ ¸ø¹Ş¾ÒÀ» ¶§.
+const int TIMEOUT_START_VOICE = 601; // req_vocm ì „ì†¡ í›„ì— res_vocm ì„ ì „ë‹¬ë°›ì§€ ëª»í–ˆì„
+const int TIMEOUT_STOP_VOICE = 602; // req_strv ìˆ˜ì‹  í›„ ìŒì„±ë°ì´í„°ë¥¼ ë³´ë‚¸ ì‹œì ë¶€í„° 10ì´ˆ ë’¤ì— REQ_STPV ì‘ë‹µì„ ëª»ë°›ì•˜ì„ ë•Œ.
+const int TIMEOUT_RECEIVE_DATA = 603; // req_stpv ìˆ˜ì‹  í›„ì— ì•„ë¬´ëŸ° ë°ì´í„°ë¥¼ ëª»ë°›ì•˜ì„ ë•Œ.
 
-	const int SERVER_ERROR = 205;
+const int SERVER_ERROR = 205;
 }
 
 #endif		// end of __GINSIDEDEF_H__

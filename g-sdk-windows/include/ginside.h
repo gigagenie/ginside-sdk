@@ -27,9 +27,9 @@ DLL_EXPORT const char* agent_getVersion();
 
 typedef struct
 {
-	int rc;
-	std::string	rcmsg;
-	std::string uuid;
+    int rc;
+    std::string rcmsg;
+    std::string uuid;
 } REGISTER_CODE;
 
 DLL_EXPORT REGISTER_CODE agent_register(std::string client_id, std::string client_key, std::string client_secret, std::string user_id);
@@ -63,6 +63,8 @@ DLL_EXPORT void agent_debugmode(bool enable);
 
 DLL_EXPORT void agent_reset();
 
+DLL_EXPORT void agent_setConfig(std::string config);
+DLL_EXPORT void agent_setCustomVersion(std::string appName, std::string version);
 
 #define  KWS_ERR_SUCCESS			0
 #define  KWS_ERR_NO_DIRECTORY		-1
