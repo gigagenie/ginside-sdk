@@ -5,6 +5,7 @@
 #### Common
 * (ADD) agent_setConfig API 추가
 * (ADD) agent_onEvent : SET_CONFIG_SUCCESS, SET_CONFIG_FAIL 추가
+* (ADD) agent_setCustomVersion API 추가
 #### Android Device SDK
 * (FIX) dssStatus가 없는 경우 해당 key에 대해 빈값[]으로 서버에 전송하도록 수정
 
