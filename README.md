@@ -2,6 +2,7 @@
 
 ## What's New?
 
+* Device SDK for Linux WebSocket v1.2.0 (2020-09-07)
 * Device SDK for Linux/Android/Windows v1.2.0(2020-08-25)
 * Device SDK 개발 가이드를 이제 [Wiki page](https://github.com/gigagenie/ginside-sdk/wiki)에서 확인하실 수 있습니다.(2020-07-10)
 * Device SDK Sample Client Source for Android/Windows released(2020-06-19)
