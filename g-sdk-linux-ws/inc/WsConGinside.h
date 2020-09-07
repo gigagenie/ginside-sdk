@@ -35,6 +35,7 @@ class WsConGinside{
         std::string m_longitude;
         std::string m_latitude;
         std::string m_address;
+        std::string m_custom_header;
         std::vector<std::string> m_arrayDevSts;// device status,aka SU:xxx
         cppr_wsclient::websocket_client_config config;
         cppr_wsclient::websocket_callback_client* pclient=nullptr;
@@ -132,6 +133,11 @@ class WsConGinside{
         };
 
         std::string agent_getTTS(const std::string& msg);
+
+        void agent_setCustomVersion(const std::string& app_name, const std::string& version);
+
+        void agent_setConfig(const std::string& option_json);
+
         //handler command 
         virtual void onCommand(std::string& actionType,std::string& cmd)=0;
         //handler event
