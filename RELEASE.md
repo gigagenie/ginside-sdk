@@ -1,6 +1,16 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+## Mobile SDK for iOS v2.0.3 (2020-09-21)
+* (FIX) 버전명 "beta" 삭제
+* (ADD) agent_serviceLoginStatus API, agent_serviceLogout API 추가
+* (ADD) SDK 버전 정보 서버로 전송 : g-plugin-ios/2.0.3 (SDK_VERSION)
+
+## Device SDK for Linux-WebSocket v1.2.0 (2020-09-07)
+* (ADD) agent_setConfig API 추가
+* (ADD) agent_onEvent : SET_CONFIG_SUCCESS, SET_CONFIG_FAIL 추가
+* (ADD) agent_setCustomVersion API 추가
+
 ## Device SDK for Linux/Android/Windows v1.2.0 (2020-08-25)
 #### Common
 * (ADD) agent_setConfig API 추가
