@@ -41,7 +41,7 @@ static NSString * GPLUGIN_NOTIFICATION_TYPE_EVENT = @"onEvent";
 static NSString * GPLUGIN_NOTIFICATION_TYPE_VOICE_MODE = @"onVoiceMode";    // type
 static NSString * GPLUGIN_NOTIFICATION_TYPE_RMS_CHANGED = @"onRmsChanged";  // isVoiceBegun, rmsdB
 static NSString * GPLUGIN_NOTIFICATION_TYPE_AUDIO_SESSION = @"onInitAudioSession";
-static NSString * GPLUGIN_NOTIFICATION_TYPE_AUDIO_SESSION_TTS = @"onInitAudioSessionTTS";
+//static NSString * GPLUGIN_NOTIFICATION_TYPE_AUDIO_SESSION_TTS = @"onInitAudioSessionTTS";
 static NSString * GPLUGIN_NOTIFICATION_TYPE_ONCOMMAND = @"onCommand"; //2.0
 NS_ASSUME_NONNULL_END
 
@@ -59,7 +59,7 @@ NS_ASSUME_NONNULL_END
 - (void)gPlugin:(GPlugin * _Nonnull)gPlug onRmsChanged:(BOOL)isVoiceBegun rmsdB:(float)rmsdB;
 - (void)gPlugin:(GPlugin * _Nonnull)gPlug onVoiceMode:(int)type __deprecated;  // type = 0: 호출어 인식 상태, type = 2: 명령어 인식 상태
 - (BOOL)gPlugin:(GPlugin * _Nonnull)gPlug onInitAudioSession:(AVAudioSession * _Nonnull)audioSession;
-- (void)gPlugin:(GPlugin * _Nonnull)gPlug onInitAudioSessionTTS:(AVAudioSession * _Nonnull)audioSession; //for tts
+//- (void)gPlugin:(GPlugin * _Nonnull)gPlug onInitAudioSessionTTS:(AVAudioSession * _Nonnull)audioSession; //for tts
 - (void)gPlugin:(GPlugin * _Nonnull)gPlug onCommand:(NSDictionary * _Nonnull)result;
 @end
 ////////////////////////////////////////////////////////////////////////////////
@@ -198,6 +198,8 @@ clientSecret:(NSString * _Nonnull)clientSecret
 - (void)textCommand:(NSString * _Nonnull)msg reqType:(NSString * _Nonnull)type; //GRPC SERVICEM 시작 TXCM
 - (void)setMediaStatus:(int)channel status:(NSString * _Nonnull)status playtime:(int)playtime; //grpc music controll
 - (NSString * _Nullable)serviceLogin:(NSString * _Nonnull)service_type url:(NSString * _Nonnull)custom_url; //Service Login
+- (NSString * _Nullable)serviceLogout:(NSString * _Nonnull)service_type; //Service Logout
+- (NSString * _Nullable)serviceLoginStatus:(NSString * _Nonnull)service_type; //Service LoginStatus
 - (void)getTTS:(NSString * _Nonnull)msg withComplete:(void(^_Nullable)(id _Nullable dataObject))complete;   //text를 음성데이터로 전달
 - (void)setServerInfo:(NSString * _Nonnull)serverIP grpcPort:(NSString * _Nonnull)grpcPort restPort:(NSString * _Nonnull)restPort; //연동 서버 주소 변경
 - (void)updateLocInfoV2:(NSString * _Nonnull)longitude latitude:(NSString * _Nonnull)latitude address:(NSString * _Nonnull)address; //단말 위치 설정
