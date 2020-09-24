@@ -12,8 +12,6 @@
   - Device SDK 버전 변경에 따라 SDK 이용하는 [**앱에서 수정해야 하는 사항**](docs/Upgrading_from_v1.0_to_v1.1.md)을 반드시 참고하시기 바랍니다.
   - *Device SDK v1.0.3은 [여기](https://github.com/gigagenie/ginside-sdk/releases/tag/r20200422)에서 내려받을 수 있습니다.*
 * Windows Device SDK 32-bit 지원(2020-06-10)
-* Mobile SDK for iOS v2.0.2beta released (2020-04-22)
-* Mobile SDK for Android v2.0.7 released (2020-04-17)
 
 ## GiGA Genie Inside 란?
 
@@ -38,7 +36,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
   Sample Client Source using gRPC protocol : [sample-client-node](https://github.com/gigagenie/sample-client-node), [sample-client-python](https://github.com/gigagenie/sample-client-python)    
   Sample Client Source using WebSocket protocol : [sample-client-web](https://github.com/gigagenie/sample-client-web)  
   
-  > G-API 스펙은 별도 공간을 통해 오픈 예정입니다.
+  > [G-INSIDE API 연동규격서](https://github.com/gigagenie/ginside-api/wiki)를 참고하세요.
 
 ## Supported Platform
 
@@ -49,9 +47,9 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
   - Windows 64-bit, 32-bit
 * Mobile SDK
   - Android API level 22 or later, iOS 9 or later
-* G-API
+* G-INSIDE API
   - C++, Java(inc. support for Android), Objective-C(for iOS), Python, Ruby, Go, C#, Node.js
-  > G-API에서 이용하는 gRPC(**g**RPC **R**emote **P**rocedure **C**alls)는 위 프로그래밍 언어를 지원합니다. 자세한 사항은 https://grpc.io 사이트를 참고하세요.
+  > G-INSIDE API에서 이용하는 gRPC(**g**RPC **R**emote **P**rocedure **C**alls)는 위 프로그래밍 언어를 지원합니다. 자세한 사항은 https://grpc.io 사이트를 참고하세요.
 
 ## 배포 패키지 구성
 
