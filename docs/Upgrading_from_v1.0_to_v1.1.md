@@ -1,6 +1,6 @@
-### G-INSIDE Device SDK - Upgrading from v1.0.x to v1.1.x
+### G-INSIDE Device SDK - Upgrading from v1.0.x to v1.1.x(or later)
 
->  **NOTICE** : Device SDK v1.0.x를 이용하여 만들어진 Application에서 SDK v1.0.x 대신 SDK v1.1.x를 이용하기 위해서는 아래 변경사항에 대해서 반드시 수정해야 합니다.
+>  **NOTICE** : Device SDK v1.0.x를 이용하여 만들어진 Application에서 SDK v1.0.x 대신 SDK v1.1.x 이상 버전을 이용하기 위해서는 아래 변경사항에 대해서 반드시 수정해야 합니다.
 
 
 
