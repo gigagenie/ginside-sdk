@@ -1,6 +1,10 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+## Device SDK for Linux v1.2.2 (2020-11-06)
+* (FIX) agent_register 호출 시 HTTP/1.1 400 Bad Request Case 수정
+* (FIX) agent_setConfig API parameter type 현행화
+
 ## Mobile SDK for iOS v2.0.3 (2020-09-21)
 * (FIX) 버전명 "beta" 삭제
 * (ADD) agent_serviceLoginStatus API, agent_serviceLogout API 추가
