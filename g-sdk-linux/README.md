@@ -9,8 +9,8 @@
   - raspbian-armv7l/*.so : Raspberry Pi supported
   - poky-aud-systemd-aarch64/*.so : G-INSIDE Reference H/W supported(Yocto Linux aarch64)
   - arm-cortex-a53_a13x/*.so : ARM Cortex-A53 supported
-* sample-src/ : Sample Client Template Open Source
 * test-src/ : SDK API 테스트 앱 Open Source
+* [sample-src](https://github.com/gigagenie/sample-client-linux-grpc) : Sample Client Template Open Source
 
 ## Supported Platforms
 * Ubuntu Linux
