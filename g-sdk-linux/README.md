@@ -14,11 +14,11 @@
 
 ## Supported Platforms
 * Ubuntu Linux
-  * Ubuntu x86_64 : build with gRPC v1.31.0, cJSON v1.7.x, OpenSSL 1.1
+  * Ubuntu x86_64 : build with gRPC v1.31.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
 * CentOS Linux
-  * CentOS x86_64 : build with gRPC v1.31.0, cJSON v1.7.x, OpenSSL 1.0
+  * CentOS x86_64 : build with gRPC v1.31.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.0
 * Raspbian for Raspberry Pi
-  * Raspbian armv7l : build with gRPC v1.31.0, cJSON v1.7.x, OpenSSL 1.1
+  * Raspbian armv7l : build with gRPC v1.33.1, protobuf v3.13.0, cJSON v1.7.x, OpenSSL 1.1
 * Embedded Linux
   * G-INSIDE Reference H/W(Yocto Linux aarch64)
     - lib dependency: libprotoc 3.6.1, grpc 1.14.1, cJSON 1.7.12, OpenSSL 1.0.2g
