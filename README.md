@@ -1,6 +1,7 @@
 # GiGA Genie Inside SDK
 
 ## What's New?
+* Device SDK for Android v1.2.1 (2021-01-18)
 * Device SDK for Linux v1.2.2 (2020-11-06)
 * Mobile SDK for iOS v2.0.3 (2020-09-21)
 * Device SDK for Linux WebSocket v1.2.0 (2020-09-07)
