@@ -1,0 +1,6 @@
+framework module InsideSDK {
+  umbrella header "InsideSDK.h"
+
+  export *
+  module * { export * }
+}

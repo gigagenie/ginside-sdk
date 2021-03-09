@@ -1,7 +1,15 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+## Device SDK for iOS v1.3.0 (2021-03-09)
+### initial release
+
+* initial public release
+* iOS 9.0 or later supported
+* 기가지니 호출어 라이브러리 kt-EasyVoi.1.0.748 적용
+
 ## Device SDK for Android v1.2.1 (2021-01-18)
+
 * (ADD) agent_startVoiceToText API 추가
 
 ## Device SDK for Linux v1.2.2 (2020-11-06)
