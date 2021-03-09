@@ -9,7 +9,7 @@
 * Xcode 12.4 버전 권장
 
 ### How to use GiGA Genie Inside Device SDK for iOS
-
+```
 1. Xcode iOS 프로젝트 생성
 
 2. 프로젝트의 Build Phases - Link Binary With libraries의 +버튼을 눌러 InsideSDK.framework를 추가
@@ -30,7 +30,7 @@
   * Info.plist에 'App Transport Security' 설정 추가
 
 8. InsideSDK 를 import 하고 InsideSDKDelegate 를 implement 한 후, agent_onCommand, agent_onEvent 메소드를 재정의 한 다음 개발을 진행
-
+```
 
 
 
