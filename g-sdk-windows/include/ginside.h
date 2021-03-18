@@ -52,6 +52,7 @@ DLL_EXPORT void agent_sendCommand(std::string cmd);
 DLL_EXPORT void agent_updateMediaStatus(int ch, std::string state, int playtime);
 
 DLL_EXPORT void agent_startVoice();
+DLL_EXPORT void agent_startVoiceToText();   // STT Only API
 DLL_EXPORT void agent_stopVoice();
 DLL_EXPORT std::string agent_getTTS(std::string msg);
 
