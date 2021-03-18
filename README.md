@@ -1,6 +1,7 @@
 # GiGA Genie Inside SDK
 
 ## What's New?
+* Device SDK for Windows v1.3.0 (2021-03-18)
 * Device SDK for iOS v1.3.0 (2021-03-09)
 * Device SDK for Android v1.2.1 (2021-01-18)
 * Device SDK for Linux v1.2.2 (2020-11-06)
