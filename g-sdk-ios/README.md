@@ -14,7 +14,7 @@
 
 2. 프로젝트의 Build Phases - Link Binary With libraries의 +버튼을 눌러 InsideSDK.framework를 추가
 
-3. Build Phases 내의 + 버튼을 눌러 다음과 같이 추가한 후 이름을 변경 (Copy Files > Embedded Framework)
+3. Build Phases 내의 + 버튼을 눌러 New Copy Files Phase 를 추가한 후 이름을 변경 (Copy Files > Embedded Framework)
 
   해당 항목이 존재한다면 추가하지 않아도 됩니다.
 
