@@ -27,7 +27,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
 * GiGA Genie Inside Device SDK(G-SDK)
 
   Linux, Android(AOSP), Windows, Web 등 단말 플랫폼별로 제공되며, 마이크(mic)에 대한 제어는 3rd party에서 처리  
-  Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows), [Linux Sample Client Source/gRPC](https://github.com/gigagenie/sample-client-linux-grpc), [Linux Sample Client Source/WebSocket](https://github.com/gigagenie/sample-client-linux-websocket)
+  Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [iOS Sample Client Source](https://github.com/gigagenie/sample-client-ios), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows), [Linux Sample Client Source/gRPC](https://github.com/gigagenie/sample-client-linux-grpc), [Linux Sample Client Source/WebSocket](https://github.com/gigagenie/sample-client-linux-websocket)
 
 * GiGA Genie Inside Mobile SDK(G-Plugin)
 
