@@ -5,6 +5,7 @@
 * include/ : C++ header files
 * lib/ : shared library(libginside.so, libKwsRnet.so)
   - ubuntu-x86_64/*.so : Ubuntu-x86_64 supported
+  - ubuntu-aarch64/*.so : Ubuntu-aarch64 supported
   - centos-x86_64/*.so : CentOS-x86_64 supported
   - raspbian-armv7l/*.so : Raspberry Pi supported
   - poky-aud-systemd-aarch64/*.so : G-INSIDE Reference H/W supported(Yocto Linux aarch64)
@@ -14,7 +15,8 @@
 
 ## Supported Platforms
 * Ubuntu Linux
-  * Ubuntu x86_64 : build with gRPC v1.31.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
+  * Ubuntu x86_64 : build with gRPC v1.20.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
+  * Ubuntu aarch64 : build with gRPC v1.20.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
 * CentOS Linux
   * CentOS x86_64 : build with gRPC v1.31.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.0
 * Raspbian for Raspberry Pi
