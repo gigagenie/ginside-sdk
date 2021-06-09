@@ -1,6 +1,10 @@
 # GiGA Genie Inside SDK release notes
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
+
+## Mobile SDK Android/iOS removed (2021-06-04)
+* Mobile SDK Android/iOS is deprecated and is replaced with Device SDK Android/iOS.(g-sdk-android/ios)
+
 ## Device SDK for Linux v1.2.2 (2021-04-29)
 * (NEW) Ubuntu Linux AArch64(ARMv8) 지원
   - SEE g-sdk-linux/lib/ubuntu-aarch64/
