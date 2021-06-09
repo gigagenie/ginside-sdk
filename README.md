@@ -1,6 +1,8 @@
 # GiGA Genie Inside SDK
 
 ## What's New?
+* Mobile SDK Android/iOS is deprecated and is replaced with Device SDK Android/iOS.(2021-06-04)
+* Device SDK for Ubuntu Linux AArch64(ARMv8) released(2021-04-29)
 * Device SDK for Windows v1.3.0 (2021-03-18)
 * Device SDK for iOS v1.3.0 (2021-03-09)
 * Device SDK for Android v1.2.1 (2021-01-18)
@@ -29,10 +31,6 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mo
   Linux, Android(AOSP), Windows, Web 등 단말 플랫폼별로 제공되며, 마이크(mic)에 대한 제어는 3rd party에서 처리  
   Sample Client Source using Device SDK : [Android Sample Client Source](https://github.com/gigagenie/sample-client-android), [iOS Sample Client Source](https://github.com/gigagenie/sample-client-ios), [Windows Sample Client Source](https://github.com/gigagenie/sample-client-windows), [Linux Sample Client Source/gRPC](https://github.com/gigagenie/sample-client-linux-grpc), [Linux Sample Client Source/WebSocket](https://github.com/gigagenie/sample-client-linux-websocket)
 
-* GiGA Genie Inside Mobile SDK(G-Plugin)
-
-  Android, iOS 등 스마트폰 앱에 기가지니를 탑재하기 위한 용도로 사용 권장, 마이크(mic)에 대한 제어는 G-Plugin 내에서 처리
-
 * GiGA Genie Inside API(G-INSIDE API)
 
   G-SDK와 G-Plugin에서 사용되는 기가지니 Cloud AI Platform에서 제공하는 API로 HTTP/2 기반 gRPC와 HTTP/1.1 기반 WebSocket 프로토콜 지원  
@@ -48,8 +46,6 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
   - Android API level 19 or later
   - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W), ARM Cortex-A53
   - Windows 64-bit, 32-bit
-* Mobile SDK
-  - Android API level 22 or later, iOS 9 or later
 * G-INSIDE API
   - C++, Java(inc. support for Android), Objective-C(for iOS), Python, Ruby, Go, C#, Node.js
   > G-INSIDE API에서 이용하는 gRPC(**g**RPC **R**emote **P**rocedure **C**alls)는 위 프로그래밍 언어를 지원합니다. 자세한 사항은 https://grpc.io 사이트를 참고하세요.
@@ -65,8 +61,6 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * g-sdk-linux/ : Device SDK for Linux 라이브러리 및 샘플 클라이언트
 * g-sdk-linux-ws/ : Device SDK for Linux WebSocket 라이브러리
 * g-sdk-windows/ : Device SDK for Windows 라이브러리
-* g-plugin-android/ : Mobile SDK for Android 라이브러리 및 개발자 가이드
-* g-plugin-ios/ : Mobile SDK for iOS 라이브러리 및 개발자 가이드
 
 ## SDK 이용 절차
 
