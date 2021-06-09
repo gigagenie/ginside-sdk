@@ -24,7 +24,7 @@ GiGA Genie Inside(이하, G-INSIDE)는 3rd party 개발자가 자신들의 제�
 
 ## GiGA Genie Inside SDK 개요
 
-GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, Mobile SDK, G-INSIDE API 등을 제공합니다.
+GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, G-INSIDE API 등을 제공합니다.
 
 * GiGA Genie Inside Device SDK(G-SDK)
 
