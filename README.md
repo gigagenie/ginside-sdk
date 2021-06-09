@@ -7,12 +7,9 @@
 * Device SDK for iOS v1.3.0 (2021-03-09)
 * Device SDK for Android v1.2.1 (2021-01-18)
 * Device SDK for Linux v1.2.2 (2020-11-06)
-* Mobile SDK for iOS v2.0.3 (2020-09-21)
 * Device SDK for Linux WebSocket v1.2.0 (2020-09-07)
 * Device SDK for Linux/Android/Windows v1.2.0(2020-08-25)
 * Device SDK 개발 가이드를 이제 [Wiki page](https://github.com/gigagenie/ginside-sdk/wiki)에서 확인하실 수 있습니다.(2020-07-10)
-* Device SDK Sample Client Source for Android/Windows released(2020-06-19)
-* Device SDK for Linux-WebSocket v1.1.0 released(2020-06-18)
 * Device SDK v1.1.0 released(2020-06-10)
   - Device SDK가 v1.0.3에서 **v1.1.0**으로 업데이트 되었습니다.
   - Device SDK 버전 변경에 따라 SDK 이용하는 [**앱에서 수정해야 하는 사항**](docs/Upgrading_from_v1.0_to_v1.1.md)을 반드시 참고하시기 바랍니다.(v1.1 or later 버전으로 업그레이드시 모두 해당)
@@ -44,6 +41,7 @@ GiGA Genie Inside SDK는 다양한 개발 환경 지원을 위해 Device SDK, G-
 GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * Device SDK
   - Android API level 19 or later
+  - iOS 9.0 or later
   - Linux : Ubuntu x86_64, CentOS x86_64, Raspbian armv7l, Yocto aarch64(G-INSIDE reference H/W), ARM Cortex-A53
   - Windows 64-bit, 32-bit
 * G-INSIDE API
@@ -57,10 +55,11 @@ GiGA Genie Inside SDK가 지원하는 개발 환경은 아래와 같습니다.
 * NOTICE.md : 오픈소스 고지문
 * RELEASE.md : 릴리즈 노트
 * docs/ : Developer Guide, etc.
-* g-sdk-android/ : Device SDK for Android 라이브러리
-* g-sdk-linux/ : Device SDK for Linux 라이브러리 및 샘플 클라이언트
-* g-sdk-linux-ws/ : Device SDK for Linux WebSocket 라이브러리
-* g-sdk-windows/ : Device SDK for Windows 라이브러리
+* g-sdk-android/ : Device SDK for Android
+* g-sdk-ios/ : Device SDK for iOS
+* g-sdk-linux/ : Device SDK for Linux 및 샘플 클라이언트
+* g-sdk-linux-ws/ : Device SDK for Linux WebSocket
+* g-sdk-windows/ : Device SDK for Windows
 
 ## SDK 이용 절차
 
