@@ -2,6 +2,11 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## Device SDK for Android v1.4.1 (2021-07-13)
+
+* (UPDATE) gRPC v1.38.0 버전 반영
+* (ADD) agent_getTTS with sampleRates parameter 추가
+
 ## Mobile SDK Android/iOS removed (2021-06-04)
 * Mobile SDK Android/iOS is deprecated and is replaced with Device SDK Android/iOS.(g-sdk-android/ios)
 

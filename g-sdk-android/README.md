@@ -30,9 +30,9 @@ dependencies{
     }
     
     // gRPC
-    implementation 'io.grpc:grpc-okhttp:1.11.0'
-    implementation 'io.grpc:grpc-protobuf-lite:1.11.0'
-    implementation 'io.grpc:grpc-stub:1.11.0'
+    implementation 'io.grpc:grpc-okhttp:1.38.0'
+    implementation 'io.grpc:grpc-protobuf-lite:1.38.0'
+    implementation 'io.grpc:grpc-stub:1.38.0'
 
     implementation 'javax.annotation:javax.annotation-api:1.2'
 }
