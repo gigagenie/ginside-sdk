@@ -6,7 +6,7 @@
 
 ### Supported Platforms
 * iOS 9.0 or later supported
-* Xcode 12.4 버전 권장
+* Xcode 13 버전 권장
 
 ### How to use GiGA Genie Inside Device SDK for iOS
 ```

@@ -2,7 +2,7 @@
 //  InsideSDK.h
 //  InsideSDK
 //
-//  Created by KT
+//  Created by piaotj on 2020/11/05.
 //
 
 #import <UIKit/UIKit.h>
@@ -28,13 +28,15 @@ FOUNDATION_EXPORT const unsigned char InsideSDKVersionString[];
 #define CFK_NULL                1007
 #define FAIL_UNSUPPORTED_API_V1 1008
 
-#define GRPC_INIT_SUCCESS       0
-#define GRPC_INIT_FAIL          1
-#define GRPC_DISCONNECTED       2
-#define GO_TO_STANDBY           3
-#define SET_CONFIG_SUCCESS      4
-#define SET_CONFIG_FAIL         5
-#define SERVER_ERROR            205
+#define GRPC_INIT_SUCCESS       0   // gRPC 연결 성공
+#define GRPC_INIT_FAIL          1   // gRPC 연결 실패
+#define GRPC_DISCONNECTED       2   // gRPC 연결 끊김
+#define GO_TO_STANDBY           3   // 요청 정상 처리, 요청에 대한 응답 TTS 없음
+#define SET_CONFIG_SUCCESS      4   // agent_setConfig 요청 정상 처리
+#define SET_CONFIG_FAIL         5   // agent_setConfig 요청 실패
+// 2021-10-12 Add S2S_REQUEST
+#define S2S_REQUEST             6   // 음성인식 결과에 대해 S2S 요청
+#define SERVER_ERROR            205 // 서버 에러
 
 #define TIMEOUT_START_VOICE     601
 #define TIMEOUT_STOP_VOICE      602
@@ -98,6 +100,14 @@ FOUNDATION_EXPORT const unsigned char InsideSDKVersionString[];
 //                               :(NSInteger * _Nonnull)size;
 - (void)agent_stopVoice;
 - (NSDictionary * _Nullable)agent_getTTS:(NSString * _Nonnull)msg;
+// 2021-10-19 Remove < reason DE Server Issue
+//- (NSDictionary * _Nullable)agent_getTTS:(NSString * _Nonnull)msg
+//                                        :(int)sampleRates;
+// 2021-10-12 Add Language, Speed
+- (NSDictionary * _Nullable)agent_getTTS_options:(NSString * _Nonnull)msg
+                                        :(int)sampleRates
+                                        :(NSString * _Nullable)language
+                                        :(int) speed;
 - (void)agent_sendCommand:(NSString * _Nonnull)cmd;
 - (NSDictionary * _Nullable)agent_serviceLogin:(NSString * _Nonnull)service_type
                                :(NSString * _Nullable)return_url;
@@ -125,5 +135,4 @@ FOUNDATION_EXPORT const unsigned char InsideSDKVersionString[];
 - (NSString *)copyToDocument;
 
 @end
-
 
