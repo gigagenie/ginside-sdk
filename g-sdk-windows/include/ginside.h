@@ -54,7 +54,8 @@ DLL_EXPORT void agent_updateMediaStatus(int ch, std::string state, int playtime)
 DLL_EXPORT void agent_startVoice();
 DLL_EXPORT void agent_startVoiceToText();   // STT Only API
 DLL_EXPORT void agent_stopVoice();
-DLL_EXPORT std::string agent_getTTS(std::string msg);
+DLL_EXPORT std::string agent_getTTS(std::string msg);    // 2021/04/20: sampleRates 0:default 24k
+DLL_EXPORT std::string agent_getTTS_options(std::string msg, int sampleRates, std::string language, int speed); // 2021.10.11: language, speed
 
 DLL_EXPORT std::string agent_serviceLogin(std::string service_type, std::string return_url);
 DLL_EXPORT std::string agent_serviceLoginStatus(std::string service_type);
