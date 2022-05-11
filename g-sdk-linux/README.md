@@ -44,7 +44,7 @@ $ sudo yum install cmake
 [Raspbian]
 $ sudo apt-get install autoconf automake libtool cmake
 ```
-   
+
 ### [gRPC](https://github.com/grpc/grpc) and Protocol Buffers
 
 ```
@@ -52,8 +52,19 @@ $ git clone --recurse-submodules -b $(curl -L https://grpc.io/release) https://g
 $ cd grpc
 $ mkdir -p cmake/build
 $ cd cmake/build
-$ cmake -DgRPC_INSTALL=ON -DgRPC_BUILD_TESTS=OFF -DBUILD_SHARED_LIBS=ON \
-  -DCMAKE_INSTALL=PREFIX=$MY_INSTALL_DIR \
+$ cmake \
+  -DgRPC_INSTALL=ON \
+  -DgRPC_BUILD_TESTS=OFF \
+  -DgRPC_SSL_PROVIDER=package \
+  -DBUILD_SHARED_LIBS=ON \
+  -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR \
+  -DgRPC_BUILD_CSHARP_EXT=OFF \
+  -DgRPC_BUILD_GRPC_CSHARP_PLUGIN=OFF \
+  -DgRPC_BUILD_GRPC_NODE_PLUGIN=OFF \
+  -DgRPC_BUILD_GRPC_OBJECTIVE_C_PLUGIN=OFF \
+  -DgRPC_BUILD_GRPC_PHP_PLUGIN=OFF \
+  -DgRPC_BUILD_GRPC_PYTHON_PLUGIN=OFF \
+  -DgRPC_BUILD_GRPC_RUBY_PLUGIN=OFF \
   ../..
 $ make
 $ make install
