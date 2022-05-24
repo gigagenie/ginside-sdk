@@ -46,3 +46,9 @@ dependencies{
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
+
+### 난독화시 proguard-rules 예외 설정
+```
+-keep class * extends com.google.protobuf.GeneratedMessageLite { *; }
+-keep class com.kt.gigagenie.inside.network.** { *; }
+```
