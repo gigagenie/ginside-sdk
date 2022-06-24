@@ -45,7 +45,7 @@ $ sudo yum install cmake
 $ sudo apt-get install autoconf automake libtool cmake
 ```
 
-### [gRPC](https://github.com/grpc/grpc) and Protocol Buffers
+### [gRPC](https://github.com/grpc/grpc)
 
 ```
 $ git clone --recurse-submodules -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
@@ -70,6 +70,20 @@ $ make
 $ make install
 ```
 SEE ALSO: [Quick Start gRPC](https://grpc.io/docs/languages/cpp/quickstart/)
+
+### Protocol Buffer
+
+```
+[gRPC 설치 후 gRPC 최상위 폴더에서 진행]
+$ cd third_party/protobuf
+$ ./autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+$ sudo ldconfig
+```
+
+
 
 ### [cJSON](https://github.com/DaveGamble/cJSON)
 
