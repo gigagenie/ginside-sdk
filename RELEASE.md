@@ -2,6 +2,12 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## Device SDK for Linux/Android/Windows/iOS v1.6.0 (2022-08-02)
+
+#### Common
+
+* (ADD) agent_startVoicePartial API 추가
+
 ## Device SDK for Linux/Android/Windows/iOS v1.5.0 (2022-02-09)
 #### Common
 * (ADD) agent_getTTS_options API 추가

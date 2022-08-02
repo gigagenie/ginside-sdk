@@ -31,6 +31,11 @@
 #define  CMD_REQ_TXCM		"Req_TXCM"  // Device --> Service
 #define  CMD_REQ_STCK		"Req_STCK"  // Device --> Service
 #define  CMD_RES_STCK		"Res_STCK"  // Server --> Device
+#define  CMD_SND_PSTT		"Snd_PSTT"  // Server --> Device
+
+#define  CMD_REQ_VOTX		"Req_VOTX"  // Device --> Service(STT ONLY) 21/01/20
+#define  CMD_RES_VOTX		"Res_VOTX"  // Server --> Device (STT_ONLY)
+
 
 #define  CMD_REQ_EXEC		"Req_EXEC"  // Device --> Service
 #define  CMD_REQ_OAUTH		"Req_OAuth" // Device --> Service
@@ -47,6 +52,7 @@ const int GRPC_DISCONNECTED = 2; // add 190925
 const int GO_TO_STANDBY = 3; // v1.0.3_04010916
 const int SET_CONFIG_SUCCESS = 4;
 const int SET_CONFIG_FAIL = 5;
+const int S2S_REQUEST = 6;			// 음성인식 결과에 대해 S2S 요청 (2021.10.11)
 
 const int TIMEOUT_START_VOICE = 601; // req_vocm 전송 후에 res_vocm 을 전달받지 못했을
 const int TIMEOUT_STOP_VOICE = 602; // req_strv 수신 후 음성데이터를 보낸 시점부터 10초 뒤에 REQ_STPV 응답을 못받았을 때.

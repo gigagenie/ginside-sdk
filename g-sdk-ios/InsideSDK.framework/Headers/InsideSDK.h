@@ -96,6 +96,7 @@ FOUNDATION_EXPORT const unsigned char InsideSDKVersionString[];
 
 - (void)agent_startVoice;
 - (void)agent_startVoiceToText;
+- (void)agent_startVoicePartial;
 - (void)agent_sendVoice:(NSData * _Nonnull)data;
 //                               :(NSInteger * _Nonnull)size;
 - (void)agent_stopVoice;
