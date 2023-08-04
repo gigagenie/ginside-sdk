@@ -2,6 +2,10 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+## Device SDK for Android v1.6.1 (2023-08-04)
+* (ADD) agent_sendStreamVoice API 추가
+* (UPDATE) agent_serviceLoginStatus API의 response에 expiry_date(access_token의 만료 일자) 추가
+
 ## Device SDK for Linux/Android/Windows/iOS v1.6.0 (2022-08-02)
 
 #### Common
