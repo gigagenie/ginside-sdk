@@ -1,6 +1,7 @@
 # GiGA Genie Inside SDK
 
 ## What's New?
+* Device SDK for Android v1.6.1 (2023-08-04)
 * Device SDK for Linux/Android/Windows/iOS v1.6.0(2022-08-02)
 * Device SDK for Linux/Android/Windows/iOS v1.5.0(2022-02-09)
 * Mobile SDK Android/iOS is deprecated and is replaced with Device SDK Android/iOS.(2021-06-04)
