@@ -15,10 +15,10 @@
 
 ## Supported Platforms
 * Ubuntu Linux
-  * Ubuntu x86_64 : build with gRPC v1.20.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
-  * Ubuntu aarch64 : build with gRPC v1.20.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.1
+  * Ubuntu x86_64 : build with gRPC v1.45.2, protobuf v3.19.4, cJSON v1.7.x, OpenSSL 1.1
+  * Ubuntu aarch64 : build with gRPC v1.45.2, protobuf v3.19.4, cJSON v1.7.x, OpenSSL 1.1
 * CentOS Linux
-  * CentOS x86_64 : build with gRPC v1.31.0, protobuf v3.12.2, cJSON v1.7.x, OpenSSL 1.0
+  * CentOS x86_64 : build with gRPC v1.45.2, protobuf v3.19.4, cJSON v1.7.x, OpenSSL 1.0
 * Raspbian for Raspberry Pi
   * Raspbian armv7l : build with gRPC v1.33.1, protobuf v3.13.0, cJSON v1.7.x, OpenSSL 1.1
 * Embedded Linux
@@ -27,9 +27,9 @@
   * ARM Cortex-A53
 
 ## SDK 이용을 위해 아래 라이브러리가 필요합니다.
-* [gRPC and Protocol Buffers](#grpc)
-* [cJSON](#cjson)
 * [OpenSSL](#openssl)
+* [cJSON](#cjson)
+* [gRPC and Protocol Buffers](#grpc)
 
 ### Build tools
 
@@ -45,10 +45,32 @@ $ sudo yum install cmake
 $ sudo apt-get install autoconf automake libtool cmake
 ```
 
+### OpenSSL
+
+```
+[Ubuntu]
+$ sudo apt install libssl-dev
+
+[CentOS]
+$ sudo yum install openssl-devel
+```
+
+### [cJSON](https://github.com/DaveGamble/cJSON)
+
+```
+$ git clone https://github.com/DaveGamble/cJSON
+$ cd cJSON
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR ..
+$ make
+$ make install
+```
+
 ### [gRPC](https://github.com/grpc/grpc)
 
 ```
-$ git clone --recurse-submodules -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc
+$ git clone --recurse-submodules -b v1.45.2 https://github.com/grpc/grpc
 $ cd grpc
 $ mkdir -p cmake/build
 $ cd cmake/build
@@ -74,7 +96,7 @@ SEE ALSO: [Quick Start gRPC](https://grpc.io/docs/languages/cpp/quickstart/)
 ### Protocol Buffer
 
 ```
-[gRPC 설치 후 gRPC 최상위 폴더에서 진행]
+[gRPC 설치시 자동 설치되며, 필요한 경우 gRPC 최상위 폴더에서 진행]
 $ cd third_party/protobuf
 $ ./autogen.sh
 $ ./configure
@@ -83,25 +105,3 @@ $ sudo make install
 $ sudo ldconfig
 ```
 
-
-
-### [cJSON](https://github.com/DaveGamble/cJSON)
-
-```
-$ git clone https://github.com/DaveGamble/cJSON
-$ cd cJSON
-$ mkdir build
-$ cd build
-$ cmake -DCMAKE_INSTALL_PREFIX=$MY_INSTALL_DIR ..
-$ make
-$ make install
-```
-### OpenSSL
-
-```
-[Ubuntu]
-$ sudo apt install libssl-dev
-
-[CentOS]
-$ sudo yum install openssl-devel
-```
