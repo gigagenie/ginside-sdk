@@ -2,6 +2,13 @@
 
 이 문서는 기가지니 인사이드 SDK의 릴리즈 노트로 신규 기능 및 변경 사항을 포함합니다.
 
+
+## Device SDK for Android v1.6.3 (2024-07-31)
+* (TTS) speaker parameter 추가
+ 
+## Device SDK for Linux v1.6.1 (2024-07-12)
+* (UPDATE) gRPC Version 업데이트 및 가이드 수정
+
 ## Device SDK for Linux/Windows v1.6.1 (2023-11-01)
 #### Linux Device SDK
 * (NEW) Rocky Linux  지원
